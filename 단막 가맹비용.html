@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>단막 프렌차이즈 예상 개설비용</title>
+    <title>단막 프랜차이즈 예상 개설비용</title>
+    <!-- 
+    2025-01-19 업데이트:
+    - 매장 기본정보 섹션 색상 개선: 가독성 향상을 위한 브라운 톤 통일
+    - 드롭다운 박스들의 배경/테두리 색상을 웹페이지 컬러 톤에 맞게 조정
+    - sales-info, sales-item, sales-select 클래스들의 디자인 일관성 개선
+    -->
     <style>
         :root {
-            --primary-color: #667eea;
-            --primary-dark: #764ba2;
-            --secondary-color: #3498db;
-            --success-color: #27ae60;
-            --warning-color: #f39c12;
-            --danger-color: #e74c3c;
-            --dark-color: #2c3e50;
-            --light-color: #ecf0f1;
+            --primary-color: #8B4513;
+            --primary-dark: #654321;
+            --secondary-color: #FF8C00;
+            --success-color: #FF7F50;
+            --warning-color: #D2691E;
+            --danger-color: #A0522D;
+            --dark-color: #654321;
+            --light-color: #FFF8DC;
             --shadow-light: 0 2px 10px rgba(0,0,0,0.1);
             --shadow-medium: 0 8px 25px rgba(0,0,0,0.15);
             --shadow-heavy: 0 20px 40px rgba(0,0,0,0.2);
@@ -30,10 +36,11 @@
 
         body {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, #8B4513 0%, #654321 100%);
             min-height: 100vh;
             padding: 20px;
-            color: #333;
+            color: #2c3e50;
+            font-variant-numeric: tabular-nums;
             line-height: 1.6;
             scroll-behavior: smooth;
         }
@@ -55,7 +62,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, var(--dark-color) 0%, #34495e 100%);
+            background: linear-gradient(135deg, var(--dark-color) 0%, var(--primary-dark) 100%);
             color: white;
             padding: 40px 30px;
             text-align: center;
@@ -85,10 +92,8 @@
             font-weight: 700;
             position: relative;
             z-index: 1;
-            background: linear-gradient(45deg, #fff, #e8f4fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .header p {
@@ -100,11 +105,12 @@
         }
 
         .sales-info {
-            background: linear-gradient(135deg, var(--secondary-color) 0%, #2980b9 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
             color: white;
             padding: 25px 40px;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-medium);
         }
 
         .sales-info::after {
@@ -133,31 +139,36 @@
         }
 
         .sales-item {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 248, 220, 0.25);
             padding: 16px 12px;
             border-radius: var(--border-radius);
             text-align: center;
             backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 248, 220, 0.4);
             transition: all var(--transition-smooth);
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .sales-item:hover {
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 248, 220, 0.35);
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
         .sales-label {
             font-size: 0.85em;
-            opacity: 0.8;
+            opacity: 0.9;
             margin-bottom: 4px;
+            color: rgba(255, 248, 220, 0.9);
+            font-weight: 500;
         }
 
         .sales-value {
             font-size: 1.1em;
             font-weight: 600;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         .content {
@@ -180,7 +191,7 @@
         }
 
         .section-header {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: linear-gradient(135deg, #FFF8DC 0%, #F5DEB3 100%);
             padding: 20px 24px;
             border-bottom: 1px solid rgba(0,0,0,0.08);
             font-weight: 700;
@@ -210,7 +221,7 @@
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
-            scrollbar-color: var(--primary-color) #f1f3f4;
+            scrollbar-color: var(--primary-color) #F5DEB3;
         }
 
         .table-wrapper::-webkit-scrollbar {
@@ -218,7 +229,7 @@
         }
 
         .table-wrapper::-webkit-scrollbar-track {
-            background: #f1f3f4;
+            background: #F5DEB3;
             border-radius: 4px;
         }
 
@@ -236,18 +247,18 @@
         }
 
         .cost-table tr:nth-child(even) {
-            background-color: #fafbfc;
+            background-color: #FFF8DC;
         }
 
         .cost-table tr:hover {
-            background-color: #f0f8ff;
+            background-color: #FFF8DC;
             transform: scale(1.01);
         }
 
         .cost-table th {
-            background: linear-gradient(135deg, var(--light-color) 0%, #dee2e6 100%);
+            background: linear-gradient(135deg, var(--light-color) 0%, #F5DEB3 100%);
             padding: 16px 12px;
-            border-bottom: 2px solid #bdc3c7;
+            border-bottom: 2px solid var(--secondary-dark);
             font-weight: 700;
             color: var(--dark-color);
             text-align: center;
@@ -265,11 +276,11 @@
 
         .item-name {
             font-weight: 500;
-            color: #34495e;
+            color: var(--dark-color);
         }
 
         .sub-name {
-            color: #7f8c8d;
+            color: var(--dark-color);
             font-size: 0.9em;
             white-space: nowrap;
             word-break: keep-all;
@@ -277,13 +288,14 @@
 
         .price {
             text-align: right;
-            font-weight: 600;
-            color: #27ae60;
+            font-weight: 700;
+            color: #FF8C00;
             white-space: nowrap;
+            font-variant-numeric: tabular-nums;
         }
 
         .quantity-input {
-            border: 2px solid #e9ecef;
+            border: 2px solid var(--secondary-dark);
             padding: 10px 12px;
             border-radius: var(--border-radius);
             width: 70px;
@@ -297,7 +309,7 @@
         .quantity-input:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+            box-shadow: 0 0 0 4px rgba(139, 69, 19, 0.15);
             transform: translateY(-1px);
         }
 
@@ -307,20 +319,21 @@
         }
 
         .quantity-input:disabled {
-            background-color: #f8f9fa;
-            color: #6c757d;
+            background-color: #FFF8DC;
+            color: var(--dark-color);
         }
 
         .total {
             text-align: right;
-            font-weight: 600;
-            color: #e74c3c;
+            font-weight: 800;
+            color: #A0522D;
             font-size: 1.05em;
+            font-variant-numeric: tabular-nums;
         }
 
         .note {
             font-size: 0.85em;
-            color: #6c757d;
+            color: var(--dark-color);
             font-style: italic;
             max-width: none;
         }
@@ -344,7 +357,7 @@
 
         .item-checkbox:hover {
             transform: scale(1.4);
-            filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));
+            filter: drop-shadow(0 2px 4px rgba(139, 69, 19, 0.3));
         }
 
         .radio-group {
@@ -372,7 +385,7 @@
 
         .radio-item input[type="radio"]:hover {
             transform: scale(1.3);
-            filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));
+            filter: drop-shadow(0 2px 4px rgba(139, 69, 19, 0.3));
         }
 
         .radio-item label {
@@ -399,17 +412,17 @@
             font-size: 0.95em;
         }
         .subtotal-row {
-            background: #e8f5e8 !important;
+            background: #FFF8DC !important;
             font-weight: 600;
         }
 
         .subtotal-row td {
-            border-top: 2px solid #27ae60;
-            color: #27ae60;
+            border-top: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
         }
 
         .total-section {
-            background: linear-gradient(135deg, var(--danger-color) 0%, #c0392b 100%);
+            background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%);
             color: white;
             margin-top: 40px;
             border-radius: var(--border-radius);
@@ -424,7 +437,7 @@
 
         .total-section:hover {
             transform: scale(1.02);
-            box-shadow: 0 30px 60px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 30px 60px rgba(160, 82, 45, 0.3);
         }
 
         .total-section::before {
@@ -445,15 +458,14 @@
 
         .total-amount {
             font-size: 3.2rem;
-            font-weight: 800;
+            font-weight: 900;
             margin-bottom: 12px;
             position: relative;
             z-index: 1;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            background: linear-gradient(45deg, #fff, #ffecec);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-variant-numeric: tabular-nums;
         }
 
         .total-label {
@@ -466,20 +478,20 @@
         }
 
         .note-section {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
+            background: #FFF8DC;
+            border: 1px solid var(--secondary-dark);
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
-            color: #856404;
+            color: var(--dark-color);
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .sales-select {
-            background: rgba(255, 255, 255, 0.95);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 248, 220, 0.95);
+            border: 2px solid rgba(139, 69, 19, 0.3);
             border-radius: var(--border-radius);
             padding: 12px 16px;
             color: var(--dark-color);
@@ -490,27 +502,29 @@
             text-align: center;
             transition: all var(--transition-smooth);
             backdrop-filter: blur(10px);
+            box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
         }
 
         .sales-select:focus {
             outline: none;
-            background: white;
+            background: var(--light-color);
             border-color: var(--secondary-color);
-            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+            box-shadow: 0 0 0 4px rgba(255, 140, 0, 0.2);
             transform: translateY(-2px);
         }
 
         .sales-select:hover {
-            background: white;
-            border-color: rgba(255, 255, 255, 0.8);
+            background: var(--light-color);
+            border-color: rgba(139, 69, 19, 0.5);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.15);
         }
         .scroll-hint {
             display: none;
             text-align: center;
             padding: 8px;
             font-size: 0.8rem;
-            color: var(--primary-color);
-            background: rgba(102, 126, 234, 0.1);
+            color: var(--dark-color);
+            background: rgba(139, 69, 19, 0.1);
             border-radius: 4px;
             margin-bottom: 8px;
             animation: fadeInOut 3s ease-in-out infinite;
@@ -553,7 +567,7 @@
             }
             
             .sales-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(4, 1fr);
                 gap: 12px;
             }
             
@@ -585,7 +599,7 @@
             .cost-table th {
                 position: sticky;
                 top: 0;
-                background: linear-gradient(135deg, var(--light-color) 0%, #dee2e6 100%);
+                background: linear-gradient(135deg, var(--light-color) 0%, #F5DEB3 100%);
                 z-index: 10;
             }
 
@@ -660,10 +674,17 @@
         <!-- 예상 매출 정보 -->
         <div class="sales-info">
             <h3 style="margin-bottom: 15px;">📊 매장 기본 정보</h3>
-            <div class="sales-grid">
+            <div class="sales-grid" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="sales-item">
+                    <div class="sales-label">지역</div>
+                    <select id="region_type" class="sales-select">
+                        <option value="수도권">수도권</option>
+                        <option value="지방권">지방권</option>
+                    </select>
+                </div>
                 <div class="sales-item">
                     <div class="sales-label">상권</div>
-                    <select id="business-type" class="sales-select" onchange="updateStoreInfo()">
+                    <select id="business_type" class="sales-select" onchange="updateStoreInfo()">
                         <option value="오피스" data-rotation="2.5">오피스</option>
                         <option value="주거" data-rotation="2.5">주거</option>
                         <option value="먹자" data-rotation="3">먹자골목</option>
@@ -674,7 +695,7 @@
                 </div>
                 <div class="sales-item">
                     <div class="sales-label">매장 평수</div>
-                    <select id="store-area" class="sales-select" onchange="updateStoreInfo()">
+                    <select id="store_area" class="sales-select" onchange="updateStoreInfo()">
                         <option value="30" data-tables="11">30평</option>
                         <option value="35" data-tables="13">35평</option>
                         <option value="40" data-tables="15" selected>40평</option>
@@ -686,7 +707,7 @@
                 </div>
                 <div class="sales-item">
                     <div class="sales-label">테이블 수</div>
-                    <div class="sales-value" id="table-count">15개</div>
+                    <div class="sales-value" id="table_count">15개</div>
                 </div>
             </div>
         </div>
@@ -711,9 +732,9 @@
                         <tr>
                             <td class="item-name">가맹비</td>
                             <td class="price">8,000,000원</td>
-                            <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" data-price="8000000" onchange="calculateCheckboxRow(this)"></td>
-                            <td class="total">0원</td>
-                            <td class="note">면제</td>
+                            <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked data-price="8000000" onchange="calculateCheckboxRow(this)"></td>
+                            <td class="total">8,000,000원</td>
+                            <td class="note"></td>
                         </tr>
                         <tr>
                             <td class="item-name">교육비</td>
@@ -745,7 +766,7 @@
                         </tr>
                         <tr class="subtotal-row">
                             <td colspan="3"><strong>본사 비용 합계</strong></td>
-                            <td class="total" id="subtotal-1"><strong>6,300,000원</strong></td>
+                            <td class="total" id="subtotal_1"><strong>14,300,000원</strong></td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -784,9 +805,9 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="price" id="interior-price">2,200,000원</td>
-                            <td style="text-align: center;"><input type="number" class="quantity-input" id="interior-area" value="40" min="0" onchange="calculateInteriorRow()"> 평</td>
-                            <td class="total" id="interior-total">88,000,000원</td>
+                            <td class="price" id="interior_price">2,200,000원</td>
+                            <td style="text-align: center;"><input type="number" class="quantity-input" id="interior_area" value="40" min="0" onchange="calculateInteriorRow()"> 평</td>
+                            <td class="total" id="interior_total">88,000,000원</td>
                             <td class="note">평당 적용</td>
                         </tr>
                         <tr>
@@ -805,7 +826,7 @@
                         </tr>
                         <tr class="subtotal-row">
                             <td colspan="4"><strong>기본 인테리어 합계</strong></td>
-                            <td class="total" id="subtotal-2"><strong>115,000,000원</strong></td>
+                            <td class="total" id="subtotal_2"><strong>115,000,000원</strong></td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -836,7 +857,7 @@
                             <td class="sub-name">4인</td>
                             <td class="price">175,000원</td>
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked disabled></td>
-                            <td><input type="number" class="quantity-input" id="table-4-qty" value="15" min="0" data-price="175000" onchange="calculateRow(this)"></td>
+                            <td><input type="number" class="quantity-input" id="table_4_qty" value="15" min="0" data-price="175000" onchange="calculateRow(this)"></td>
                             <td class="total">2,625,000원</td>
                             <td class="note"></td>
                         </tr>
@@ -844,7 +865,7 @@
                             <td class="sub-name">6인</td>
                             <td class="price">225,000원</td>
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" onchange="toggleQuantity(this)"></td>
-                            <td><input type="number" class="quantity-input" id="table-6-qty" value="0" min="0" data-price="225000" onchange="calculateTableChairSync(this)"></td>
+                            <td><input type="number" class="quantity-input" id="table_6_qty" value="0" min="0" data-price="225000" onchange="calculateTableChairSync(this)"></td>
                             <td class="total">0원</td>
                             <td class="note"></td>
                         </tr>
@@ -853,7 +874,7 @@
                             <td class="sub-name">1인용 의자</td>
                             <td class="price">75,000원</td>
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked disabled></td>
-                            <td><input type="number" class="quantity-input" id="chair-qty" value="60" min="0" data-price="75000" onchange="calculateRow(this)"></td>
+                            <td><input type="number" class="quantity-input" id="chair_qty" value="60" min="0" data-price="75000" onchange="calculateRow(this)"></td>
                             <td class="total">4,500,000원</td>
                             <td class="note"></td>
                         </tr>
@@ -861,7 +882,7 @@
                             <td class="sub-name">붙박이 1석</td>
                             <td class="price">170,000원</td>
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" onchange="toggleQuantity(this)"></td>
-                            <td><input type="number" class="quantity-input" id="booth-seat-qty" value="0" min="0" data-price="170000" onchange="calculateTableChairSync(this)"></td>
+                            <td><input type="number" class="quantity-input" id="booth_seat_qty" value="0" min="0" data-price="170000" onchange="calculateTableChairSync(this)"></td>
                             <td class="total">0원</td>
                             <td class="note">0.5m당 1석 기준</td>
                         </tr>
@@ -893,7 +914,7 @@
                         </tr>
                         <tr class="subtotal-row">
                             <td colspan="5"><strong>의탁자 및 가구류 합계</strong></td>
-                            <td class="total" id="subtotal-3"><strong>8,325,000원</strong></td>
+                            <td class="total" id="subtotal_3"><strong>8,325,000원</strong></td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -922,24 +943,24 @@
                         <tr>
                             <td class="item-name">홀/주방 설비</td>
                             <td class="sub-name">30평 기본 9,848,000원</td>
-                            <td class="price" id="kitchen-equipment-total-price">11,208,000원</td>
+                            <td class="price" id="kitchen_equipment_total_price">11,208,000원</td>
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked onchange="toggleKitchenEquipment(this, 'equipment')"></td>
-                            <td style="text-align: center;" id="kitchen-equipment-area-display">40평 (10평 초과분)</td>
-                            <td class="total" id="kitchen-equipment-total">11,208,000원</td>
+                            <td style="text-align: center;" id="kitchen_equipment_area_display">40평 (10평 초과분)</td>
+                            <td class="total" id="kitchen_equipment_total">11,208,000원</td>
                             <td class="note">30평 기본 + 초과분 평당 136,000원</td>
                         </tr>
                         <tr>
                             <td class="item-name">홀/주방 집기</td>
                             <td class="sub-name">30평 기본 9,483,000원</td>
-                            <td class="price" id="kitchen-fixture-total-price">11,283,000원</td>
+                            <td class="price" id="kitchen_fixture_total_price">11,283,000원</td>
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked onchange="toggleKitchenEquipment(this, 'fixture')"></td>
-                            <td style="text-align: center;" id="kitchen-fixture-area-display">40평 (10평 초과분)</td>
-                            <td class="total" id="kitchen-fixture-total">11,283,000원</td>
+                            <td style="text-align: center;" id="kitchen_fixture_area_display">40평 (10평 초과분)</td>
+                            <td class="total" id="kitchen_fixture_total">11,283,000원</td>
                             <td class="note">30평 기본 + 초과분 평당 180,000원</td>
                         </tr>
                         <tr class="subtotal-row">
                             <td colspan="5"><strong>홀/주방 집기 및 설비 합계</strong></td>
-                            <td class="total" id="subtotal-4"><strong>22,491,000원</strong></td>
+                            <td class="total" id="subtotal_4"><strong>22,491,000원</strong></td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -979,11 +1000,11 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="price" id="grill-price">94,000원</td>
+                            <td class="price" id="grill_price">94,000원</td>
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked disabled></td>
-                            <td><input type="number" class="quantity-input" id="grill-qty" value="15" min="0" data-price="94000" onchange="calculateRow(this)"></td>
-                            <td class="total" id="grill-total">1,410,000원</td>
-                            <td class="note" id="grill-note">테이블당 적용</td>
+                            <td><input type="number" class="quantity-input" id="grill_qty" value="15" min="0" data-price="94000" onchange="calculateRow(this)"></td>
+                            <td class="total" id="grill_total">1,410,000원</td>
+                            <td class="note" id="grill_note">테이블당 적용</td>
                         </tr>
                         
                         <tr>
@@ -991,7 +1012,7 @@
                             <td class="sub-name">코팅팬</td>
                             <td class="price">35,000원</td>
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked disabled></td>
-                            <td><input type="number" class="quantity-input" id="grill-plate-qty" value="120" min="0" data-price="35000" onchange="calculateRow(this)"></td>
+                            <td><input type="number" class="quantity-input" id="grill_plate_qty" value="120" min="0" data-price="35000" onchange="calculateRow(this)"></td>
                             <td class="total">4,200,000원</td>
                             <td class="note">매장평수 × 3개</td>
                         </tr>
@@ -999,9 +1020,9 @@
                             <td class="item-name">착화기</td>
                             <td class="sub-name">고용량</td>
                             <td class="price">3,190,000원</td>
-                            <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" id="igniter-checkbox" checked disabled></td>
-                            <td><input type="number" class="quantity-input" id="igniter-qty" value="1" min="0" data-price="3190000" onchange="calculateRow(this)"></td>
-                            <td class="total" id="igniter-total">3,190,000원</td>
+                            <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" id="igniter_checkbox" checked disabled></td>
+                            <td><input type="number" class="quantity-input" id="igniter_qty" value="1" min="0" data-price="3190000" onchange="calculateRow(this)"></td>
+                            <td class="total" id="igniter_total">3,190,000원</td>
                             <td class="note">테이블화로형 선택시 필수</td>
                         </tr>
                         <tr>
@@ -1009,13 +1030,13 @@
                             <td class="sub-name">로스터 후드팬</td>
                             <td class="price">80,000원</td>
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked disabled></td>
-                            <td><input type="number" class="quantity-input" id="direct-fire-qty" value="15" min="0" data-price="80000" onchange="calculateRow(this)"></td>
+                            <td><input type="number" class="quantity-input" id="direct_fire_qty" value="15" min="0" data-price="80000" onchange="calculateRow(this)"></td>
                             <td class="total">1,200,000원</td>
                             <td class="note">테이블당 적용</td>
                         </tr>
                         <tr class="subtotal-row">
                             <td colspan="5"><strong>화로 및 착화기 합계</strong></td>
-                            <td class="total" id="subtotal-5"><strong>10,000,000원</strong></td>
+                            <td class="total" id="subtotal_5"><strong>10,000,000원</strong></td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -1077,8 +1098,8 @@
                         <tr>
                             <td class="sub-name">덕트</td>
                             <td class="price">200,000원</td>
-                            <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked disabled></td>
-                            <td><input type="number" class="quantity-input" id="duct-qty" value="0" min="0" data-price="200000" onchange="calculateRow(this)" disabled></td>
+                            <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" onchange="toggleQuantity(this)"></td>
+                            <td><input type="number" class="quantity-input" id="duct_qty" value="0" min="0" data-price="200000" onchange="calculateRow(this)" disabled></td>
                             <td class="total">0원</td>
                             <td class="note">평당 적용</td>
                         </tr>
@@ -1096,11 +1117,11 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="price" id="terminal-price">2,000,000원</td>
+                            <td class="price" id="terminal_price">2,000,000원</td>
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked disabled></td>
                             <td></td>
-                            <td class="total" id="terminal-total">2,000,000원</td>
-                            <td class="note" id="terminal-note">단지실 0.5평 미만</td>
+                            <td class="total" id="terminal_total">2,000,000원</td>
+                            <td class="note" id="terminal_note">단지실 0.5평 미만</td>
                         </tr>
                         <tr>
                             <td class="sub-name">6평 벽걸이</td>
@@ -1117,7 +1138,7 @@
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked onchange="toggleQuantity(this)"></td>
                             <td><input type="number" class="quantity-input" value="2" min="0" data-price="1550000" onchange="calculateRow(this)"></td>
                             <td class="total">3,100,000원</td>
-                            <td class="note">케리어(네이버 기준) 신품</td>
+                            <td rowspan="3" class="note" style="vertical-align: middle;">케리어(네이버 기준) 신품<br>매장 평수 2배 이상 세팅</td>
                         </tr>
                         <tr>
                             <td class="sub-name">80평 스탠드</td>
@@ -1125,7 +1146,6 @@
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" onchange="toggleQuantity(this)"></td>
                             <td><input type="number" class="quantity-input" value="0" min="0" data-price="2890000" onchange="calculateRow(this)" disabled></td>
                             <td class="total">0원</td>
-                            <td class="note">케리어(네이버 기준) 신품</td>
                         </tr>
                         <tr>
                             <td class="sub-name">40평 시스템</td>
@@ -1133,7 +1153,6 @@
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" onchange="toggleQuantity(this)"></td>
                             <td><input type="number" class="quantity-input" value="0" min="0" data-price="1450000" onchange="calculateRow(this)" disabled></td>
                             <td class="total">0원</td>
-                            <td class="note">케리어(네이버 기준) 신품</td>
                         </tr>
                         
                         <tr>
@@ -1183,7 +1202,7 @@
                             <td class="sub-name">포스터, 베너</td>
                             <td class="price">50,000원</td>
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked onchange="toggleQuantity(this)"></td>
-                            <td><input type="number" class="quantity-input" id="design-qty" value="40" min="0" data-price="50000" onchange="calculateRow(this)"></td>
+                            <td><input type="number" class="quantity-input" id="design_qty" value="40" min="0" data-price="50000" onchange="calculateRow(this)"></td>
                             <td class="total">2,000,000원</td>
                             <td class="note">평당 적용</td>
                         </tr>
@@ -1273,7 +1292,7 @@
                         </tr>
                         <tr class="subtotal-row">
                             <td colspan="5"><strong>별도공사 합계</strong></td>
-                            <td class="total" id="subtotal-6"><strong>9,500,000원</strong></td>
+                            <td class="total" id="subtotal_6"><strong>9,500,000원</strong></td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -1282,7 +1301,7 @@
             </div>
 
             <div class="total-section">
-                <div class="total-amount" id="grand-total">171,316,000원</div>
+                <div class="total-amount" id="grand_total">179,316,000원</div>
                 <div class="total-label">총 예상 개설비용</div>
             </div>
 
@@ -1303,8 +1322,8 @@
 
         function updateStoreInfo() {
             // 상권과 평수 정보 가져오기
-            const businessSelect = document.getElementById('business-type');
-            const areaSelect = document.getElementById('store-area');
+            const businessSelect = document.getElementById('business_type');
+            const areaSelect = document.getElementById('store_area');
             
             const selectedBusiness = businessSelect.options[businessSelect.selectedIndex];
             const selectedArea = areaSelect.options[areaSelect.selectedIndex];
@@ -1314,14 +1333,14 @@
             const tables = parseInt(selectedArea.dataset.tables);
             
             // 매장 기본 정보 업데이트
-            document.getElementById('table-count').textContent = tables + '개';
-            document.getElementById('rotation-rate').textContent = rotation + '회';
+            document.getElementById('table_count').textContent = tables + '개';
+            document.getElementById('rotation_rate').textContent = rotation + '회';
             
             // 매출 계산 (평균조단가 91,000 × 회전수 × 테이블수 × 영업일수 30)
             const unitPrice = 91000;
             const workingDays = 30;
             const monthlySales = unitPrice * rotation * tables * workingDays;
-            document.getElementById('monthly-sales').textContent = formatNumber(monthlySales) + '원';
+            document.getElementById('monthly_sales').textContent = formatNumber(monthlySales) + '원';
             
             // 개설비용 항목들 자동 업데이트
             updateCostItems(area, tables);
@@ -1329,11 +1348,11 @@
 
         function updateCostItems(area, tables) {
             // 1. 인테리어 평수 업데이트
-            document.getElementById('interior-area').value = area;
+            document.getElementById('interior_area').value = area;
             calculateInteriorRow();
             
             // 2. 테이블 수량 업데이트 (4인 테이블만 기본 설정)
-            document.getElementById('table-4-qty').value = tables;
+            document.getElementById('table_4_qty').value = tables;
             
             // 3. 의자 수량 업데이트 (테이블 기반으로 계산)
             updateChairQuantity();
@@ -1342,24 +1361,24 @@
             updateKitchenEquipment(area);
             
             // 5. 화로세트 수량 업데이트
-            document.getElementById('grill-qty').value = tables;
+            document.getElementById('grill_qty').value = tables;
             calculateGrillSelection();
             
             // 6. 불판 수량 업데이트 (매장평수 × 3)
             const grillPlateQty = area * 3;
-            document.getElementById('grill-plate-qty').value = grillPlateQty;
-            calculateRow(document.getElementById('grill-plate-qty'));
+            document.getElementById('grill_plate_qty').value = grillPlateQty;
+            calculateRow(document.getElementById('grill_plate_qty'));
             
             // 7. 직화기 수량 업데이트 (선택과 무관하게 테이블 수와 동일)
-            document.getElementById('direct-fire-qty').value = tables;
-            calculateRow(document.getElementById('direct-fire-qty'));
+            document.getElementById('direct_fire_qty').value = tables;
+            calculateRow(document.getElementById('direct_fire_qty'));
             
             // 8. 디자인물 수량 업데이트 (평당)
-            document.getElementById('design-qty').value = area;
-            calculateRow(document.getElementById('design-qty'));
+            document.getElementById('design_qty').value = area;
+            calculateRow(document.getElementById('design_qty'));
 
             // 8-1. 덕트 수량 업데이트 (매장 평수와 동일, 입력 비활성화)
-            const ductQtyInput = document.getElementById('duct-qty');
+            const ductQtyInput = document.getElementById('duct_qty');
             if (ductQtyInput) {
                 ductQtyInput.value = area;
                 calculateRow(ductQtyInput);
@@ -1390,14 +1409,14 @@
                 `${area}평<br>(${equipmentExtraArea}평 초과분)` : 
                 `${area}평<br>(기본)`;
             
-            document.getElementById('kitchen-equipment-total-price').textContent = formatNumber(equipmentTotal) + '원';
-            document.getElementById('kitchen-equipment-area-display').innerHTML = equipmentAreaDisplay;
+            document.getElementById('kitchen_equipment_total_price').textContent = formatNumber(equipmentTotal) + '원';
+            document.getElementById('kitchen_equipment_area_display').innerHTML = equipmentAreaDisplay;
             
             const equipmentCheckbox = document.querySelector('input[onchange*="equipment"]');
             if (equipmentCheckbox.checked) {
-                document.getElementById('kitchen-equipment-total').textContent = formatNumber(equipmentTotal) + '원';
+                document.getElementById('kitchen_equipment_total').textContent = formatNumber(equipmentTotal) + '원';
             } else {
-                document.getElementById('kitchen-equipment-total').textContent = '0원';
+                document.getElementById('kitchen_equipment_total').textContent = '0원';
             }
             
             // 홀/주방 집기 업데이트
@@ -1405,14 +1424,14 @@
                 `${area}평<br>(${fixtureExtraArea}평 초과분)` : 
                 `${area}평<br>(기본)`;
             
-            document.getElementById('kitchen-fixture-total-price').textContent = formatNumber(fixtureTotal) + '원';
-            document.getElementById('kitchen-fixture-area-display').innerHTML = fixtureAreaDisplay;
+            document.getElementById('kitchen_fixture_total_price').textContent = formatNumber(fixtureTotal) + '원';
+            document.getElementById('kitchen_fixture_area_display').innerHTML = fixtureAreaDisplay;
             
             const fixtureCheckbox = document.querySelector('input[onchange*="fixture"]');
             if (fixtureCheckbox.checked) {
-                document.getElementById('kitchen-fixture-total').textContent = formatNumber(fixtureTotal) + '원';
+                document.getElementById('kitchen_fixture_total').textContent = formatNumber(fixtureTotal) + '원';
             } else {
-                document.getElementById('kitchen-fixture-total').textContent = '0원';
+                document.getElementById('kitchen_fixture_total').textContent = '0원';
             }
             
             // 소계 계산
@@ -1420,12 +1439,12 @@
             const fixtureAmount = fixtureCheckbox.checked ? fixtureTotal : 0;
             const kitchenSubtotal = equipmentAmount + fixtureAmount;
             
-            document.getElementById('subtotal-4').innerHTML = '<strong>' + formatNumber(kitchenSubtotal) + '원</strong>';
+            document.getElementById('subtotal_4').innerHTML = '<strong>' + formatNumber(kitchenSubtotal) + '원</strong>';
             
         }
 
         function toggleKitchenEquipment(checkbox, type) {
-            const area = parseInt(document.getElementById('store-area').value);
+            const area = parseInt(document.getElementById('store_area').value);
             
             if (type === 'equipment') {
                 const equipmentBase = 9848000;
@@ -1434,9 +1453,9 @@
                 const equipmentTotal = equipmentBase + equipmentExtra;
                 
                 if (checkbox.checked) {
-                    document.getElementById('kitchen-equipment-total').textContent = formatNumber(equipmentTotal) + '원';
+                    document.getElementById('kitchen_equipment_total').textContent = formatNumber(equipmentTotal) + '원';
                 } else {
-                    document.getElementById('kitchen-equipment-total').textContent = '0원';
+                    document.getElementById('kitchen_equipment_total').textContent = '0원';
                 }
             } else if (type === 'fixture') {
                 const fixtureBase = 9483000;
@@ -1445,9 +1464,9 @@
                 const fixtureTotal = fixtureBase + fixtureExtra;
                 
                 if (checkbox.checked) {
-                    document.getElementById('kitchen-fixture-total').textContent = formatNumber(fixtureTotal) + '원';
+                    document.getElementById('kitchen_fixture_total').textContent = formatNumber(fixtureTotal) + '원';
                 } else {
-                    document.getElementById('kitchen-fixture-total').textContent = '0원';
+                    document.getElementById('kitchen_fixture_total').textContent = '0원';
                 }
             }
             
@@ -1456,12 +1475,12 @@
             const fixtureCheckbox = document.querySelector('input[onchange*="fixture"]');
             
             const equipmentAmount = equipmentCheckbox.checked ? 
-                parseInt(document.getElementById('kitchen-equipment-total').textContent.replace(/[^\d]/g, '')) : 0;
+                parseInt(document.getElementById('kitchen_equipment_total').textContent.replace(/[^\d]/g, '')) : 0;
             const fixtureAmount = fixtureCheckbox.checked ? 
-                parseInt(document.getElementById('kitchen-fixture-total').textContent.replace(/[^\d]/g, '')) : 0;
+                parseInt(document.getElementById('kitchen_fixture_total').textContent.replace(/[^\d]/g, '')) : 0;
             
             const kitchenSubtotal = equipmentAmount + fixtureAmount;
-            document.getElementById('subtotal-4').innerHTML = '<strong>' + formatNumber(kitchenSubtotal) + '원</strong>';
+            document.getElementById('subtotal_4').innerHTML = '<strong>' + formatNumber(kitchenSubtotal) + '원</strong>';
             
             // 전체 합계 재계산
             calculateGrandTotal();
@@ -1470,28 +1489,28 @@
         function calculateGrillSelection() {
             const selectedGrill = document.querySelector('input[name="grill-type"]:checked');
             const grillPrice = parseInt(selectedGrill.dataset.price);
-            const tables = parseInt(document.getElementById('grill-qty').value) || 15;
+            const tables = parseInt(document.getElementById('grill_qty').value) || 15;
             
             // 화로세트 정보 업데이트
-            document.getElementById('grill-price').textContent = formatNumber(grillPrice) + '원';
-            document.getElementById('grill-qty').dataset.price = grillPrice;
+            document.getElementById('grill_price').textContent = formatNumber(grillPrice) + '원';
+            document.getElementById('grill_qty').dataset.price = grillPrice;
             
             // 착화기/직화기 상태 업데이트 (정정된 요구사항 반영)
-            const igniterCheckbox = document.getElementById('igniter-checkbox');
-            const igniterQty = document.getElementById('igniter-qty');
-            const directFireQtyInput = document.getElementById('direct-fire-qty');
+            const igniterCheckbox = document.getElementById('igniter_checkbox');
+            const igniterQty = document.getElementById('igniter_qty');
+            const directFireQtyInput = document.getElementById('direct_fire_qty');
             if (selectedGrill.value === 'electric') {
                 // 착화식로스터: 착화기 불필요(0)
                 igniterCheckbox.checked = false;
                 igniterQty.value = 0;
                 calculateRow(igniterQty);
-                document.getElementById('grill-note').textContent = '전기공사 제외 금액';
+                document.getElementById('grill_note').textContent = '전기공사 제외 금액';
             } else {
                 // 테이블화로형: 착화기 필요(1)
                 igniterCheckbox.checked = true;
                 igniterQty.value = 1;
                 calculateRow(igniterQty);
-                document.getElementById('grill-note').textContent = '테이블당 적용';
+                document.getElementById('grill_note').textContent = '테이블당 적용';
             }
             // 직화기는 선택과 무관하게 테이블 수와 동일
             directFireQtyInput.value = tables;
@@ -1499,7 +1518,7 @@
             
             // 화로세트 합계 계산
             const grillTotal = grillPrice * tables;
-            document.getElementById('grill-total').textContent = formatNumber(grillTotal) + '원';
+            document.getElementById('grill_total').textContent = formatNumber(grillTotal) + '원';
             
             // 섹션 소계 재계산
             calculateGrillSectionSubtotal();
@@ -1509,13 +1528,13 @@
         }
 
         function calculateGrillSectionSubtotal() {
-            const grillTotal = parseInt(document.getElementById('grill-total').textContent.replace(/[^\d]/g, '')) || 0;
+            const grillTotal = parseInt(document.getElementById('grill_total').textContent.replace(/[^\d]/g, '')) || 0;
             const plateTotal = parseInt(document.querySelector('#grill-plate-qty').closest('tr').querySelector('.total').textContent.replace(/[^\d]/g, '')) || 0;
-            const igniterTotal = parseInt(document.getElementById('igniter-total').textContent.replace(/[^\d]/g, '')) || 0;
+            const igniterTotal = parseInt(document.getElementById('igniter_total').textContent.replace(/[^\d]/g, '')) || 0;
             const fireTotal = parseInt(document.querySelector('#direct-fire-qty').closest('tr').querySelector('.total').textContent.replace(/[^\d]/g, '')) || 0;
             
             const sectionTotal = grillTotal + plateTotal + igniterTotal + fireTotal;
-            document.getElementById('subtotal-5').innerHTML = '<strong>' + formatNumber(sectionTotal) + '원</strong>';
+            document.getElementById('subtotal_5').innerHTML = '<strong>' + formatNumber(sectionTotal) + '원</strong>';
         }
 
         function calculateTableChairSync(input) {
@@ -1528,13 +1547,13 @@
             // 테이블 4인과 6인 연동
             if (input.id === 'table-6-qty') {
                 const table6Qty = parseInt(input.value) || 0;
-                const currentTable4Qty = parseInt(document.getElementById('table-4-qty').value) || 0;
-                const baseTableQty = parseInt(document.getElementById('store-area').options[document.getElementById('store-area').selectedIndex].dataset.tables);
+                const currentTable4Qty = parseInt(document.getElementById('table_4_qty').value) || 0;
+                const baseTableQty = parseInt(document.getElementById('store_area').options[document.getElementById('store_area').selectedIndex].dataset.tables);
                 
                 // 4인 테이블 수량 조정 (전체 테이블 수에서 6인 테이블 수를 뺀 값)
                 const newTable4Qty = Math.max(0, baseTableQty - table6Qty);
-                document.getElementById('table-4-qty').value = newTable4Qty;
-                calculateRow(document.getElementById('table-4-qty'));
+                document.getElementById('table_4_qty').value = newTable4Qty;
+                calculateRow(document.getElementById('table_4_qty'));
                 
                 // 화로 관련 항목도 업데이트
                 const totalTables = newTable4Qty + table6Qty;
@@ -1542,25 +1561,25 @@
                 calculateRow(document.getElementById('table-grill-qty'));
                 
                 // 직화기 수량은 선택과 무관하게 테이블 수와 동일
-                document.getElementById('direct-fire-qty').value = totalTables;
-                calculateRow(document.getElementById('direct-fire-qty'));
+                document.getElementById('direct_fire_qty').value = totalTables;
+                calculateRow(document.getElementById('direct_fire_qty'));
                 
                 const grillPlateQty = totalTables * 8;
-                document.getElementById('grill-plate-qty').value = grillPlateQty;
-                calculateRow(document.getElementById('grill-plate-qty'));
+                document.getElementById('grill_plate_qty').value = grillPlateQty;
+                calculateRow(document.getElementById('grill_plate_qty'));
             }
         }
 
         function updateChairQuantity() {
-            const table4Qty = parseInt(document.getElementById('table-4-qty').value) || 0;
-            const table6Qty = parseInt(document.getElementById('table-6-qty').value) || 0;
-            const boothSeatQty = parseInt(document.getElementById('booth-seat-qty').value) || 0;
+            const table4Qty = parseInt(document.getElementById('table_4_qty').value) || 0;
+            const table6Qty = parseInt(document.getElementById('table_6_qty').value) || 0;
+            const boothSeatQty = parseInt(document.getElementById('booth_seat_qty').value) || 0;
             
             // 의자 계산: (4인테이블 × 4) + (6인테이블 × 6) - 붙박이석
             const chairQty = (table4Qty * 4) + (table6Qty * 6) - boothSeatQty;
             
-            document.getElementById('chair-qty').value = Math.max(0, chairQty);
-            calculateRow(document.getElementById('chair-qty'));
+            document.getElementById('chair_qty').value = Math.max(0, chairQty);
+            calculateRow(document.getElementById('chair_qty'));
         }
 
         function calculateCheckboxRow(checkbox) {
@@ -1577,14 +1596,14 @@
 
         function calculateInteriorRow() {
             const selectedRadio = document.querySelector('input[name="interior-type"]:checked');
-            const area = parseInt(document.getElementById('interior-area').value) || 0;
+            const area = parseInt(document.getElementById('interior_area').value) || 0;
             const price = parseInt(selectedRadio.dataset.price);
             const total = price * area;
             
-            document.getElementById('interior-price').textContent = formatNumber(price) + '원';
-            document.getElementById('interior-total').textContent = formatNumber(total) + '원';
+            document.getElementById('interior_price').textContent = formatNumber(price) + '원';
+            document.getElementById('interior_total').textContent = formatNumber(total) + '원';
             
-            const row = document.getElementById('interior-total').closest('tr');
+            const row = document.getElementById('interior_total').closest('tr');
             calculateSectionSubtotal(row);
             calculateGrandTotal();
         }
@@ -1666,16 +1685,16 @@
                 grandTotal += amount;
             });
             
-            document.getElementById('grand-total').textContent = formatNumber(grandTotal) + '원';
+            document.getElementById('grand_total').textContent = formatNumber(grandTotal) + '원';
         }
 
         function calculateTerminalSelection() {
             const selected = document.querySelector('input[name="terminal-type"]:checked');
             if (!selected) return;
             const price = parseInt(selected.dataset.price);
-            const priceCell = document.getElementById('terminal-price');
-            const totalCell = document.getElementById('terminal-total');
-            const noteCell = document.getElementById('terminal-note');
+            const priceCell = document.getElementById('terminal_price');
+            const totalCell = document.getElementById('terminal_total');
+            const noteCell = document.getElementById('terminal_note');
             // 가격/합계 갱신
             priceCell.textContent = formatNumber(price) + '원';
             totalCell.textContent = formatNumber(price) + '원';
