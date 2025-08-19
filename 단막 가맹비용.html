@@ -125,8 +125,8 @@
 
         .sales-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
             margin-top: 20px;
             position: relative;
             z-index: 1;
@@ -553,7 +553,7 @@
             }
             
             .sales-grid {
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                grid-template-columns: repeat(3, 1fr);
                 gap: 12px;
             }
             
@@ -659,7 +659,7 @@
 
         <!-- 예상 매출 정보 -->
         <div class="sales-info">
-            <h3 style="margin-bottom: 15px;">📊 매장 기본 정보 (수량 계산 기준)</h3>
+            <h3 style="margin-bottom: 15px;">📊 매장 기본 정보</h3>
             <div class="sales-grid">
                 <div class="sales-item">
                     <div class="sales-label">상권</div>
@@ -687,22 +687,6 @@
                 <div class="sales-item">
                     <div class="sales-label">테이블 수</div>
                     <div class="sales-value" id="table-count">15개</div>
-                </div>
-                <div class="sales-item">
-                    <div class="sales-label">평균 조단가</div>
-                    <div class="sales-value">91,000원</div>
-                </div>
-                <div class="sales-item">
-                    <div class="sales-label">기대 회전수</div>
-                    <div class="sales-value" id="rotation-rate">2.5회</div>
-                </div>
-                <div class="sales-item">
-                    <div class="sales-label">영업일수</div>
-                    <div class="sales-value">30일</div>
-                </div>
-                <div class="sales-item">
-                    <div class="sales-label">월 예상 매출</div>
-                    <div class="sales-value" id="monthly-sales">102,375,000원</div>
                 </div>
             </div>
         </div>
@@ -748,9 +732,9 @@
                         <tr>
                             <td class="item-name">실측 및 도면</td>
                             <td class="price">300,000원</td>
-                            <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" data-price="300000" onchange="calculateCheckboxRow(this)"></td>
-                            <td class="total">0원</td>
-                            <td class="note">면제</td>
+                            <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked data-price="300000" onchange="calculateCheckboxRow(this)"></td>
+                            <td class="total">300,000원</td>
+                            <td class="note"></td>
                         </tr>
                         <tr>
                             <td class="item-name">감리비</td>
@@ -761,7 +745,7 @@
                         </tr>
                         <tr class="subtotal-row">
                             <td colspan="3"><strong>본사 비용 합계</strong></td>
-                            <td class="total" id="subtotal-1"><strong>6,000,000원</strong></td>
+                            <td class="total" id="subtotal-1"><strong>6,300,000원</strong></td>
                             <td></td>
                         </tr>
                     </tbody>
