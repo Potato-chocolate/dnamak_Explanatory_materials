@@ -295,27 +295,29 @@
         }
 
         .quantity-input {
-            border: 2px solid var(--secondary-dark);
-            padding: 10px 12px;
-            border-radius: var(--border-radius);
-            width: 70px;
+            border: 1px solid #6B4423;
+            padding: 12px 14px;
+            border-radius: 8px;
+            width: 75px;
             text-align: center;
-            font-size: 0.95rem;
+            font-size: 15px;
             font-weight: 500;
             transition: all var(--transition-smooth);
-            background: white;
+            background: #FFFEF7;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.1);
         }
 
         .quantity-input:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(139, 69, 19, 0.15);
-            transform: translateY(-1px);
+            background: white;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.06), 0 2px 8px rgba(139, 69, 19, 0.15), 0 0 0 2px rgba(139, 69, 19, 0.1);
         }
 
         .quantity-input:hover:not(:disabled) {
-            border-color: var(--secondary-color);
-            box-shadow: var(--shadow-light);
+            border-color: #7A4D28;
+            background: white;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.12);
         }
 
         .quantity-input:disabled {
@@ -627,9 +629,9 @@
             }
             
             .quantity-input {
-                width: 60px;
-                padding: 8px 6px;
-                font-size: 0.9rem;
+                width: 65px;
+                padding: 10px 8px;
+                font-size: 14px;
             }
 
             .radio-group {
@@ -707,7 +709,7 @@
                 </div>
                 <div class="sales-item">
                     <div class="sales-label">테이블 수</div>
-                    <div class="sales-value" id="table_count">15개</div>
+                    <div class="sales-select" id="table_count" style="cursor: default; pointer-events: none;">15개</div>
                 </div>
             </div>
         </div>
