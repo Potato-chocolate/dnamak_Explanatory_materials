@@ -205,6 +205,32 @@
             border-collapse: collapse;
         }
 
+        .table-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) #f1f3f4;
+        }
+
+        .table-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #f1f3f4;
+            border-radius: 4px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
         .cost-table tr {
             transition: all var(--transition-fast);
         }
@@ -478,6 +504,23 @@
             background: white;
             border-color: rgba(255, 255, 255, 0.8);
         }
+        .scroll-hint {
+            display: none;
+            text-align: center;
+            padding: 8px;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 4px;
+            margin-bottom: 8px;
+            animation: fadeInOut 3s ease-in-out infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -522,14 +565,43 @@
                 padding: 16px 20px;
                 font-size: 1.1rem;
             }
+
+            .scroll-hint {
+                display: block;
+            }
             
             .cost-table {
                 font-size: 0.85rem;
+                min-width: 600px;
+                white-space: nowrap;
             }
             
             .cost-table th,
             .cost-table td {
-                padding: 10px 8px;
+                padding: 12px 8px;
+                min-width: fit-content;
+            }
+
+            .cost-table th {
+                position: sticky;
+                top: 0;
+                background: linear-gradient(135deg, var(--light-color) 0%, #dee2e6 100%);
+                z-index: 10;
+            }
+
+            .cost-table .item-name {
+                min-width: 120px;
+            }
+
+            .cost-table .price {
+                min-width: 100px;
+            }
+
+            .cost-table .note {
+                min-width: 150px;
+                max-width: none;
+                white-space: normal;
+                font-size: 0.75rem;
             }
             
             .total-amount {
@@ -545,15 +617,14 @@
                 padding: 8px 6px;
                 font-size: 0.9rem;
             }
-            
-            .note {
-                max-width: 120px;
-                font-size: 0.8rem;
-            }
 
             .radio-group {
                 flex-wrap: wrap;
-                gap: 10px;
+                gap: 8px;
+            }
+
+            .radio-item {
+                font-size: 0.85rem;
             }
         }
 
@@ -640,7 +711,9 @@
             <!-- 본사 비용 -->
             <div class="cost-section">
                 <div class="section-header">본사 비용</div>
-                <table class="cost-table">
+                <div class="scroll-hint">📱 좌우로 스크롤하여 전체 내용을 확인하세요</div>
+                <div class="table-wrapper">
+                    <table class="cost-table">
                     <thead>
                         <tr>
                             <th style="width: 20%">항목</th>
@@ -692,13 +765,16 @@
                             <td></td>
                         </tr>
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
 
             <!-- 기본 인테리어 -->
             <div class="cost-section">
                 <div class="section-header">기본 인테리어</div>
-                <table class="cost-table">
+                <div class="scroll-hint">📱 좌우로 스크롤하여 전체 내용을 확인하세요</div>
+                <div class="table-wrapper">
+                    <table class="cost-table">
                     <thead>
                         <tr>
                             <th style="width: 20%">항목</th>
@@ -749,13 +825,16 @@
                             <td></td>
                         </tr>
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
 
             <!-- 의탁자 및 가구류 -->
             <div class="cost-section">
                 <div class="section-header">의탁자 및 가구류</div>
-                <table class="cost-table">
+                <div class="scroll-hint">📱 좌우로 스크롤하여 전체 내용을 확인하세요</div>
+                <div class="table-wrapper">
+                    <table class="cost-table">
                     <thead>
                         <tr>
                             <th style="width: 20%">항목</th>
@@ -834,13 +913,16 @@
                             <td></td>
                         </tr>
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
 
             <!-- 홀/주방 집기 및 설비 -->
             <div class="cost-section">
                 <div class="section-header">홀/주방 집기 및 설비</div>
-                <table class="cost-table">
+                <div class="scroll-hint">📱 좌우로 스크롤하여 전체 내용을 확인하세요</div>
+                <div class="table-wrapper">
+                    <table class="cost-table">
                     <thead>
                         <tr>
                             <th style="width: 18%">항목</th>
@@ -877,13 +959,16 @@
                             <td></td>
                         </tr>
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
 
             <!-- 화로 및 착화기 -->
             <div class="cost-section">
                 <div class="section-header">화로 및 착화기</div>
-                <table class="cost-table">
+                <div class="scroll-hint">📱 좌우로 스크롤하여 전체 내용을 확인하세요</div>
+                <div class="table-wrapper">
+                    <table class="cost-table">
                     <thead>
                         <tr>
                             <th style="width: 15%">항목</th>
@@ -950,13 +1035,16 @@
                             <td></td>
                         </tr>
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
 
             <!-- 별도공사 -->
             <div class="cost-section">
                 <div class="section-header">별도공사</div>
-                <table class="cost-table">
+                <div class="scroll-hint">📱 좌우로 스크롤하여 전체 내용을 확인하세요</div>
+                <div class="table-wrapper">
+                    <table class="cost-table">
                     <thead>
                         <tr>
                             <th style="width: 20%">항목</th>
@@ -1221,7 +1309,8 @@
                             <td></td>
                         </tr>
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
 
             <div class="total-section">
