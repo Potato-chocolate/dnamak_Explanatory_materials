@@ -983,9 +983,7 @@
     </div>
 
     <script>
-        function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
+        const formatNumber = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
         function updateStoreInfo() {
             // 상권과 평수 정보 가져오기

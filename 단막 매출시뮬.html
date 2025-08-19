@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>단막 프랜차이즈 매출 시뮬레이션</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+        
+        .input-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .input-section h2 {
+            color: #343a40;
+            margin-bottom: 25px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #495057;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .result-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .result-section h2 {
+            margin-bottom: 25px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .result-value {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .result-unit {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .calculation-details {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .calculation-details h3 {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .reference-tables {
+            grid-column: 1 / -1;
+            margin-top: 20px;
+        }
+        
+        .profit-analysis {
+            grid-column: 1 / -1;
+            margin-top: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .profit-header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .profit-header h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .profit-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .profit-content {
+            padding: 30px;
+        }
+        
+        .profit-input-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .profit-input-section h3 {
+            margin-bottom: 15px;
+            color: #343a40;
+            font-weight: 600;
+        }
+        
+        .rent-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .rent-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .rent-input input:focus {
+            outline: none;
+            border-color: #28a745;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+        }
+        
+        .profit-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .summary-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .summary-card.revenue {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+        
+        .summary-card.expense {
+            background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+        }
+        
+        .summary-card.profit {
+            background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
+        }
+        
+        .summary-card h4 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .summary-card .amount {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .summary-card .percentage {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .expense-categories {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .expense-category {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .category-header {
+            background: #343a40;
+            color: white;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        
+        .category-header:hover {
+            background: #495057;
+        }
+        
+        .category-header h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .category-summary {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .toggle-icon {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+        
+        .category-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .category-details.open {
+            max-height: 500px;
+        }
+        
+        .detail-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .detail-table th,
+        .detail-table td {
+            padding: 12px 20px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 14px;
+        }
+        
+        .detail-table th {
+            background: #e9ecef;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .detail-table .amount {
+            text-align: right;
+            font-weight: 500;
+        }
+        
+        .detail-table .percentage {
+            text-align: right;
+            color: #6c757d;
+            font-size: 12px;
+        }
+        
+        .tables-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .reference-table {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .table-title {
+            background: #343a40;
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .table-content {
+            padding: 0;
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            height: 100%;
+        }
+        
+        th, td {
+            padding: 10px 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+        
+        th {
+            background: #e9ecef;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        tr:hover {
+            background: #f1f3f4;
+        }
+        
+        .highlight {
+            background: #fff3cd !important;
+            border-left: 4px solid #ffc107;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .tables-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-value {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>단막 프랜차이즈 매출 시뮬레이션</h1>
+            <p>원하는 조건을 입력하여 예상 매출을 확인해보세요</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="input-section">
+                <h2>📍 매장 정보 입력</h2>
+                
+                <div class="form-group">
+                    <label for="location_area">출점지역 및 상권</label>
+                    <select id="location_area" onchange="updateCalculation()">
+                        <option value="오피스-종각">오피스 - 종각</option>
+                        <option value="주거-노원">주거 - 노원</option>
+                        <option value="먹자-상암">먹자골목 - 상암</option>
+                        <option value="대학생-신촌">대학가 - 신촌</option>
+                        <option value="복합-홍대">복합상권 - 홍대</option>
+                        <option value="데이트-석촌">데이트코스 - 석촌</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="area_size">매장 평수</label>
+                    <select id="area_size" onchange="updateCalculation()">
+                        <option value="30">30평</option>
+                        <option value="35">35평</option>
+                        <option value="40" selected>40평</option>
+                        <option value="45">45평</option>
+                        <option value="50">50평</option>
+                        <option value="60">60평</option>
+                        <option value="70">70평</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="business_days">월 영업일수</label>
+                    <input type="number" id="business_days" value="30" min="25" max="31" onchange="updateCalculation()">
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <h2>💰 예상 월 매출</h2>
+                <div class="result-value" id="monthly_sales">102,375,000원</div>
+                
+                <div class="calculation-details">
+                    <h3>📊 계산 상세</h3>
+                    <div class="calc-row">
+                        <span>매장 평수:</span>
+                        <span id="calc_area">40평</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>테이블 수:</span>
+                        <span id="calc_tables">15개</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>평균 조단가:</span>
+                        <span id="calc_price">91,000원</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>기대 회전수:</span>
+                        <span id="calc_turnover">2.5회</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>영업일수:</span>
+                        <span id="calc_days">30일</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="reference-tables">
+            <div class="tables-container">
+                <div class="reference-table">
+                    <div class="table-title">평수별 테이블 배치 기준</div>
+                    <div class="table-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>평수</th>
+                                    <th>테이블 수</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>30평</td><td>11개</td></tr>
+                                <tr><td>35평</td><td>13개</td></tr>
+                                <tr class="highlight"><td>40평</td><td>15개</td></tr>
+                                <tr><td>45평</td><td>17개</td></tr>
+                                <tr><td>50평</td><td>19개</td></tr>
+                                <tr><td>60평</td><td>23개</td></tr>
+                                <tr><td>70평</td><td>27개</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="reference-table">
+                    <div class="table-title">상권별 회전수 & 조단가</div>
+                    <div class="table-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>상권</th>
+                                    <th>기대회전</th>
+                                    <th>평균조단가</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="highlight"><td>오피스</td><td>2.5회</td><td>91,000원</td></tr>
+                                <tr><td>주거</td><td>2.5회</td><td>82,000원</td></tr>
+                                <tr><td>먹자골목</td><td>3.0회</td><td>87,000원</td></tr>
+                                <tr><td>대학가</td><td>3.5회</td><td>79,000원</td></tr>
+                                <tr><td>복합상권</td><td>3.0회</td><td>85,000원</td></tr>
+                                <tr><td>데이트코스</td><td>3.5회</td><td>85,000원</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="reference-table">
+                    <div class="table-title">지역별 상권 분류 참고</div>
+                    <div class="table-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>상권구분</th>
+                                    <th>대표지역</th>
+                                    <th>특징</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="highlight"><td>오피스</td><td>종각</td><td>직장인 중심</td></tr>
+                                <tr><td>주거</td><td>노원</td><td>주민 중심</td></tr>
+                                <tr><td>먹자골목</td><td>상암</td><td>외식 중심</td></tr>
+                                <tr><td>대학가</td><td>신촌</td><td>대학생 중심</td></tr>
+                                <tr><td>복합상권</td><td>홍대</td><td>다양한 고객층</td></tr>
+                                <tr><td>데이트코스</td><td>석촌</td><td>연인 중심</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 예상 수익 분석 섹션 -->
+        <div class="profit-analysis">
+            <div class="profit-header">
+                <h2>💰 예상 수익 분석</h2>
+                <p>매출에서 각종 비용을 차감한 순수익을 확인해보세요</p>
+            </div>
+            
+            <div class="profit-content">
+                <div class="profit-input-section">
+                    <h3>🏢 임대료 설정</h3>
+                    <div class="rent-input">
+                        <label>월 임대료:</label>
+                        <input type="text" id="monthly_rent" value="4,400,000" onchange="updateProfitCalculation()" oninput="formatRentInput(this)">
+                        <span>원 (부가세 포함)</span>
+                    </div>
+                </div>
+                
+                <div class="profit-summary">
+                    <div class="summary-card revenue">
+                        <h4>총 매출</h4>
+                        <div class="amount" id="profit_revenue">102,375,000원</div>
+                        <div class="percentage">100%</div>
+                    </div>
+                    <div class="summary-card expense">
+                        <h4>총 지출</h4>
+                        <div class="amount" id="profit_expense">71,039,183원</div>
+                        <div class="percentage" id="expense_percentage">69.4%</div>
+                    </div>
+                    <div class="summary-card profit">
+                        <h4>순수익</h4>
+                        <div class="amount" id="net_profit">31,335,817원</div>
+                        <div class="percentage" id="profit_percentage">30.6%</div>
+                    </div>
+                </div>
+                
+                <div class="expense-categories">
+                    <div class="expense-category">
+                        <div class="category-header" onclick="toggleCategory('fixed-costs')">
+                            <h4>🏢 고정비</h4>
+                            <div class="category-summary">
+                                <span id="fixed_costs_amount">5,062,900원</span>
+                                <span class="percentage" id="fixed_costs_percent">(4.9%)</span>
+                                <span class="toggle-icon" id="fixed-costs-icon">▼</span>
+                            </div>
+                        </div>
+                        <div class="category-details" id="fixed-costs-details">
+                            <table class="detail-table">
+                                <thead>
+                                    <tr>
+                                        <th>항목</th>
+                                        <th>금액</th>
+                                        <th>비율</th>
+                                        <th>비고</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>임대료</td>
+                                        <td class="amount" id="rent_display">4,400,000원</td>
+                                        <td class="percentage" id="rent_percent">4.3%</td>
+                                        <td>부가세 포함</td>
+                                    </tr>
+                                    <tr>
+                                        <td>포스</td>
+                                        <td class="amount">279,400원</td>
+                                        <td class="percentage">0.27%</td>
+                                        <td>테이블오더, 메인 포스 (평수별)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>캐치테이블</td>
+                                        <td class="amount">38,500원</td>
+                                        <td class="percentage">0.04%</td>
+                                        <td>예약 및 웨이팅</td>
+                                    </tr>
+                                    <tr>
+                                        <td>보안</td>
+                                        <td class="amount">110,000원</td>
+                                        <td class="percentage">0.1%</td>
+                                        <td>보안 서비스</td>
+                                    </tr>
+                                    <tr>
+                                        <td>인터넷</td>
+                                        <td class="amount">55,000원</td>
+                                        <td class="percentage">0.05%</td>
+                                        <td>인터넷, 전화요금</td>
+                                    </tr>
+                                    <tr>
+                                        <td>보험</td>
+                                        <td class="amount">70,000원</td>
+                                        <td class="percentage">0.07%</td>
+                                        <td>음식물책임배상보험</td>
+                                    </tr>
+                                    <tr>
+                                        <td>기장대행</td>
+                                        <td class="amount">110,000원</td>
+                                        <td class="percentage">0.1%</td>
+                                        <td>회계 사무소</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="expense-category">
+                        <div class="category-header" onclick="toggleCategory('labor-costs')">
+                            <h4>👥 인건비</h4>
+                            <div class="category-summary">
+                                <span id="labor_costs_amount">24,700,320원</span>
+                                <span class="percentage">(24.1%)</span>
+                                <span class="toggle-icon" id="labor-costs-icon">▼</span>
+                            </div>
+                        </div>
+                        <div class="category-details" id="labor-costs-details">
+                            <table class="detail-table">
+                                <thead>
+                                    <tr>
+                                        <th>항목</th>
+                                        <th>금액</th>
+                                        <th>비율</th>
+                                        <th>비고</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>직원 급여</td>
+                                        <td class="amount">16,500,000원</td>
+                                        <td class="percentage">16.1%</td>
+                                        <td>평수별 차등 적용</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4대보험</td>
+                                        <td class="amount">1,485,000원</td>
+                                        <td class="percentage">1.5%</td>
+                                        <td>직원 급여의 9%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PT 급여</td>
+                                        <td class="amount">6,715,320원</td>
+                                        <td class="percentage">6.6%</td>
+                                        <td>평수별 차등 적용</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="expense-category">
+                        <div class="category-header" onclick="toggleCategory('food-costs')">
+                            <h4>🥩 식재료</h4>
+                            <div class="category-summary">
+                                <span id="food_costs_amount">25,849,688원</span>
+                                <span class="percentage">(25.30%)</span>
+                                <span class="toggle-icon" id="food-costs-icon">▼</span>
+                            </div>
+                        </div>
+                        <div class="category-details" id="food-costs-details">
+                            <table class="detail-table">
+                                <thead>
+                                    <tr>
+                                        <th>항목</th>
+                                        <th>금액</th>
+                                        <th>비율</th>
+                                        <th>비고</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>본사 물류(막창)</td>
+                                        <td class="amount" id="food_main">12,796,875원</td>
+                                        <td class="percentage">12.5%</td>
+                                        <td>막창, 소막창, 껍데기</td>
+                                    </tr>
+                                    <tr>
+                                        <td>본사 물류(소스)</td>
+                                        <td class="amount" id="food_sauce">2,047,500원</td>
+                                        <td class="percentage">2.0%</td>
+                                        <td>전용 소스류</td>
+                                    </tr>
+                                    <tr>
+                                        <td>막창외 육류</td>
+                                        <td class="amount" id="food_meat">3,071,250원</td>
+                                        <td class="percentage">3.0%</td>
+                                        <td>삼겹살, 목살, 항정살</td>
+                                    </tr>
+                                    <tr>
+                                        <td>청과 및 공산품</td>
+                                        <td class="amount" id="food_produce">5,886,563원</td>
+                                        <td class="percentage">5.8%</td>
+                                        <td>쌀, 야채, 김가루 등</td>
+                                    </tr>
+                                    <tr>
+                                        <td>부자재 및 소모품</td>
+                                        <td class="amount" id="food_supplies">2,047,500원</td>
+                                        <td class="percentage">2.0%</td>
+                                        <td>숯, 종이컵, 물티슈 등</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="expense-category">
+                        <div class="category-header" onclick="toggleCategory('beverage-costs')">
+                            <h4>🍺 주류 음료</h4>
+                            <div class="category-summary">
+                                <span id="beverage_costs_amount">6,910,313원</span>
+                                <span class="percentage">(6.80%)</span>
+                                <span class="toggle-icon" id="beverage-costs-icon">▼</span>
+                            </div>
+                        </div>
+                        <div class="category-details" id="beverage-costs-details">
+                            <table class="detail-table">
+                                <thead>
+                                    <tr>
+                                        <th>항목</th>
+                                        <th>금액</th>
+                                        <th>비율</th>
+                                        <th>비고</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>일반주류</td>
+                                        <td class="amount" id="beverage_regular">5,118,750원</td>
+                                        <td class="percentage">5.0%</td>
+                                        <td>소주, 맥주</td>
+                                    </tr>
+                                    <tr>
+                                        <td>전통주류</td>
+                                        <td class="amount" id="beverage_premium">1,023,750원</td>
+                                        <td class="percentage">1.0%</td>
+                                        <td>하이볼, 고급 주류</td>
+                                    </tr>
+                                    <tr>
+                                        <td>음료</td>
+                                        <td class="amount" id="beverage_soft">767,813원</td>
+                                        <td class="percentage">0.8%</td>
+                                        <td>콜라, 사이다, 물</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="expense-category">
+                        <div class="category-header" onclick="toggleCategory('utility-costs')">
+                            <h4>⚡ 수도광열비</h4>
+                            <div class="category-summary">
+                                <span id="utility_costs_amount">1,842,750원</span>
+                                <span class="percentage">(1.8%)</span>
+                                <span class="toggle-icon" id="utility-costs-icon">▼</span>
+                            </div>
+                        </div>
+                        <div class="category-details" id="utility-costs-details">
+                            <table class="detail-table">
+                                <thead>
+                                    <tr>
+                                        <th>항목</th>
+                                        <th>금액</th>
+                                        <th>비율</th>
+                                        <th>비고</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>전기세</td>
+                                        <td class="amount" id="utility_electric">1,023,750원</td>
+                                        <td class="percentage">1.0%</td>
+                                        <td>매출 1%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>가스비</td>
+                                        <td class="amount" id="utility_gas">511,875원</td>
+                                        <td class="percentage">0.5%</td>
+                                        <td>LNG 사용</td>
+                                    </tr>
+                                    <tr>
+                                        <td>수도세</td>
+                                        <td class="amount" id="utility_water">307,125원</td>
+                                        <td class="percentage">0.3%</td>
+                                        <td>매출 0.3%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="expense-category">
+                        <div class="category-header" onclick="toggleCategory('misc-costs')">
+                            <h4>📋 기타잡비</h4>
+                            <div class="category-summary">
+                                <span id="misc_costs_amount">5,625,713원</span>
+                                <span class="percentage">(5.5%)</span>
+                                <span class="toggle-icon" id="misc-costs-icon">▼</span>
+                            </div>
+                        </div>
+                        <div class="category-details" id="misc-costs-details">
+                            <table class="detail-table">
+                                <thead>
+                                    <tr>
+                                        <th>항목</th>
+                                        <th>금액</th>
+                                        <th>비율</th>
+                                        <th>비고</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>불판코팅</td>
+                                        <td class="amount" id="misc_coating">511,875원</td>
+                                        <td class="percentage">0.5%</td>
+                                        <td>매출 0.5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>복리후생비</td>
+                                        <td class="amount">500,000원</td>
+                                        <td class="percentage">0.5%</td>
+                                        <td>부식비 및 비품</td>
+                                    </tr>
+                                    <tr>
+                                        <td>카드수수료</td>
+                                        <td class="amount" id="misc_card_fee">1,433,250원</td>
+                                        <td class="percentage">1.33%</td>
+                                        <td>카드매출(95%)의 1.4%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>로열티</td>
+                                        <td class="amount" id="misc_royalty">2,252,250원</td>
+                                        <td class="percentage">2.2%</td>
+                                        <td>매출 2.2%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>광고선전비</td>
+                                        <td class="amount" id="misc_advertising">2,047,500원</td>
+                                        <td class="percentage">2.0%</td>
+                                        <td>본사+매장 홍보비</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 기본 데이터 설정
+        const tablesByArea = {
+            30: 11, 35: 13, 40: 15, 45: 17, 50: 19, 60: 23, 70: 27
+        };
+        
+        const areaTypeData = {
+            '오피스': { turnover: 2.5, price: 91000 },
+            '주거': { turnover: 2.5, price: 82000 },
+            '먹자': { turnover: 3.0, price: 87000 },
+            '대학생': { turnover: 3.5, price: 79000 },
+            '복합': { turnover: 3.0, price: 85000 },
+            '데이트': { turnover: 3.5, price: 85000 }
+        };
+        
+        // 평수별 인건비 데이터 (엑셀 파일 기준)
+        const laborCostsByArea = {
+            30: { staffSalary: 16500000, ptSalary: 6437120 },
+            40: { staffSalary: 16500000, ptSalary: 6715320 },
+            50: { staffSalary: 22700000, ptSalary: 5992000 },
+            60: { staffSalary: 22700000, ptSalary: 7939400 },
+            70: { staffSalary: 22700000, ptSalary: 9886800 }
+        };
+        
+        // 평수별 포스 비용 계산 (테이블 오더기 + 메인 포스 + 부가세)
+        const getPosCost = area => Math.round(((14000 * (tablesByArea[area] + 1)) + 30000) * 1.1);
+        // 평수별 인건비 계산 함수 (보간법 적용)
+        function getLaborCosts(area) {
+            // 정확한 데이터가 있는 경우
+            if (laborCostsByArea[area]) {
+                return laborCostsByArea[area];
+            }
+            
+            // 보간법으로 계산
+            const areas = Object.keys(laborCostsByArea).map(Number).sort((a, b) => a - b);
+            
+            // 범위 내에서 보간
+            for (let i = 0; i < areas.length - 1; i++) {
+                const lowerArea = areas[i];
+                const upperArea = areas[i + 1];
+                
+                if (area > lowerArea && area < upperArea) {
+                    const ratio = (area - lowerArea) / (upperArea - lowerArea);
+                    const lowerData = laborCostsByArea[lowerArea];
+                    const upperData = laborCostsByArea[upperArea];
+                    
+                    return {
+                        staffSalary: Math.round(lowerData.staffSalary + (upperData.staffSalary - lowerData.staffSalary) * ratio),
+                        ptSalary: Math.round(lowerData.ptSalary + (upperData.ptSalary - lowerData.ptSalary) * ratio)
+                    };
+                }
+            }
+            
+            // 범위를 벗어나는 경우 가장 가까운 값 사용
+            if (area <= areas[0]) {
+                return laborCostsByArea[areas[0]];
+            } else {
+                return laborCostsByArea[areas[areas.length - 1]];
+            }
+        }
+        
+        // 매출 계산 업데이트 함수
+        function updateCalculation() {
+            const locationArea = document.getElementById('location_area').value;
+            const areaType = locationArea.split('-')[0]; // 상권 타입 추출
+            const area = parseInt(document.getElementById('area_size').value);
+            const businessDays = parseInt(document.getElementById('business_days').value);
+            
+            const tableCount = tablesByArea[area];
+            const areaData = areaTypeData[areaType];
+            
+            // 매출 계산: 테이블수 × 평균조단가 × 기대회전수 × 영업일수
+            const monthlySales = tableCount * areaData.price * areaData.turnover * businessDays;
+            
+            // 결과 업데이트
+            document.getElementById('monthly_sales').textContent = monthlySales.toLocaleString() + '원';
+            document.getElementById('calc_area').textContent = area + '평';
+            document.getElementById('calc_tables').textContent = tableCount + '개';
+            document.getElementById('calc_price').textContent = areaData.price.toLocaleString() + '원';
+            document.getElementById('calc_turnover').textContent = areaData.turnover + '회';
+            document.getElementById('calc_days').textContent = businessDays + '일';
+            
+            // 테이블 하이라이트 업데이트
+            updateTableHighlights(area, areaType);
+            
+            // 수익 분석도 함께 업데이트
+            updateProfitCalculation();
+        }
+        
+        // 테이블 하이라이트 업데이트
+        function updateTableHighlights(area, areaType) {
+            // 평수별 테이블 하이라이트
+            const areaRows = document.querySelectorAll('.reference-table:first-child tbody tr');
+            areaRows.forEach(row => {
+                row.classList.remove('highlight');
+                const areaText = row.cells[0].textContent;
+                if (areaText.includes(area + '평')) {
+                    row.classList.add('highlight');
+                }
+            });
+            
+            // 상권별 테이블 하이라이트
+            const typeRows = document.querySelectorAll('.reference-table:nth-child(2) tbody tr');
+            typeRows.forEach(row => {
+                row.classList.remove('highlight');
+                const typeText = row.cells[0].textContent;
+                if (typeText === areaType) {
+                    row.classList.add('highlight');
+                }
+            });
+        }
+        
+        // 수익 분석 카테고리 토글 함수
+        function toggleCategory(categoryId) {
+            const details = document.getElementById(categoryId + '-details');
+            const icon = document.getElementById(categoryId + '-icon');
+            
+            if (details.classList.contains('open')) {
+                details.classList.remove('open');
+                icon.textContent = '▼';
+            } else {
+                details.classList.add('open');
+                icon.textContent = '▲';
+            }
+        }
+        
+        // 임대료 입력 포맷팅
+        const formatRentInput = input => {
+            const value = input.value.replace(/[^0-9]/g, '');
+            input.value = value ? parseInt(value).toLocaleString() : '';
+        };
+        
+        // 수익 계산 업데이트 함수
+        function updateProfitCalculation() {
+            const monthlySalesText = document.getElementById('monthly_sales').textContent;
+            const monthlySales = parseInt(monthlySalesText.replace(/,/g, ''));
+            
+            // 임대료에서 쉼표 제거 후 숫자로 변환
+            const monthlyRentText = document.getElementById('monthly_rent').value;
+            const monthlyRent = parseInt(monthlyRentText.replace(/,/g, '')) || 0;
+            
+            const area = parseInt(document.getElementById('area_size').value);
+            
+            // 평수별 인건비 및 포스 비용 계산
+            const laborCosts = getLaborCosts(area);
+            const staffSalary = laborCosts.staffSalary;
+            const ptSalary = laborCosts.ptSalary;
+            const insurance = Math.round(staffSalary * 0.09); // 4대보험 (직원급여의 9%)
+            const totalLaborCosts = staffSalary + insurance + ptSalary;
+            
+            // 포스 비용 계산
+            const posCost = getPosCost(area);
+            
+            // 고정비 계산 (임대료 + 포스 + 기타 고정비)
+            const otherFixedCosts = posCost + 38500 + 110000 + 55000 + 70000 + 110000;
+            const totalFixedCosts = monthlyRent + otherFixedCosts;
+            
+            // 각 비용 항목 계산 (매출 기준 비율)
+            const foodCosts = Math.round(monthlySales * 0.253); // 25.3%
+            const beverageCosts = Math.round(monthlySales * 0.068); // 6.8%
+            const utilityCosts = Math.round(monthlySales * 0.018); // 1.8%
+            
+            // 기타잡비 계산
+            const coatingCosts = Math.round(monthlySales * 0.005);
+            const welfareCosts = 500000;
+            // 카드수수료: 카드 매출(총 매출의 95%)의 1.4%
+            const cardSales = monthlySales * 0.95; // 카드 매출 (현금 5% 제외)
+            const cardFee = Math.round(cardSales * 0.014); // 카드 매출의 1.4%
+            const royalty = Math.round(monthlySales * 0.022);
+            const advertising = Math.round(monthlySales * 0.02);
+            const miscCosts = coatingCosts + welfareCosts + cardFee + royalty + advertising;
+            
+            // 총 지출 및 순수익 계산
+            const totalExpense = totalFixedCosts + totalLaborCosts + foodCosts + beverageCosts + utilityCosts + miscCosts;
+            const netProfit = monthlySales - totalExpense;
+            
+            // 화면 업데이트
+            document.getElementById('profit_revenue').textContent = monthlySales.toLocaleString() + '원';
+            document.getElementById('profit_expense').textContent = totalExpense.toLocaleString() + '원';
+            document.getElementById('net_profit').textContent = netProfit.toLocaleString() + '원';
+            
+            document.getElementById('expense_percentage').textContent = ((totalExpense / monthlySales) * 100).toFixed(1) + '%';
+            document.getElementById('profit_percentage').textContent = ((netProfit / monthlySales) * 100).toFixed(1) + '%';
+            
+            // 각 카테고리별 금액 업데이트
+            document.getElementById('fixed_costs_amount').textContent = totalFixedCosts.toLocaleString() + '원';
+            document.getElementById('fixed_costs_percent').textContent = '(' + ((totalFixedCosts / monthlySales) * 100).toFixed(1) + '%)';
+            document.getElementById('rent_display').textContent = monthlyRent.toLocaleString() + '원';
+            document.getElementById('rent_percent').textContent = ((monthlyRent / monthlySales) * 100).toFixed(1) + '%';
+            
+            document.getElementById('labor_costs_amount').textContent = totalLaborCosts.toLocaleString() + '원';
+            
+            // 인건비 비율 업데이트
+            const laborPercentage = ((totalLaborCosts / monthlySales) * 100).toFixed(1);
+            const laborPercentElement = document.querySelector('#labor-costs .category-summary .percentage');
+            if (laborPercentElement) {
+                laborPercentElement.textContent = '(' + laborPercentage + '%)';
+            }
+            document.getElementById('food_costs_amount').textContent = foodCosts.toLocaleString() + '원';
+            
+            // 식재료 비율 업데이트 (실제 계산된 비율 표시)
+            const actualFoodPercentage = ((foodCosts / monthlySales) * 100).toFixed(2);
+            const foodPercentElement = document.querySelector('#food-costs .category-summary .percentage');
+            if (foodPercentElement) {
+                foodPercentElement.textContent = '(' + actualFoodPercentage + '%)';
+            }
+            
+            document.getElementById('beverage_costs_amount').textContent = beverageCosts.toLocaleString() + '원';
+            
+            // 주류 음료 비율 업데이트 (실제 계산된 비율 표시)
+            const actualBeveragePercentage = ((beverageCosts / monthlySales) * 100).toFixed(2);
+            const beveragePercentElement = document.querySelector('#beverage-costs .category-summary .percentage');
+            if (beveragePercentElement) {
+                beveragePercentElement.textContent = '(' + actualBeveragePercentage + '%)';
+            }
+            document.getElementById('utility_costs_amount').textContent = utilityCosts.toLocaleString() + '원';
+            document.getElementById('misc_costs_amount').textContent = miscCosts.toLocaleString() + '원';
+            
+            // 세부 항목들 업데이트
+            updateDetailedCosts(monthlySales, area);
+            updateLaborDetails(staffSalary, insurance, ptSalary, monthlySales);
+            updateFixedCostDetails(monthlyRent, posCost, monthlySales);
+        }
+        
+        // 세부 비용 항목 업데이트 함수
+        function updateDetailedCosts(monthlySales, area) {
+            // 식재료 세부 항목
+            document.getElementById('food_main').textContent = Math.round(monthlySales * 0.125).toLocaleString() + '원';
+            document.getElementById('food_sauce').textContent = Math.round(monthlySales * 0.02).toLocaleString() + '원';
+            document.getElementById('food_meat').textContent = Math.round(monthlySales * 0.03).toLocaleString() + '원';
+            document.getElementById('food_produce').textContent = Math.round(monthlySales * 0.0575).toLocaleString() + '원';
+            document.getElementById('food_supplies').textContent = Math.round(monthlySales * 0.02).toLocaleString() + '원';
+            
+            // 주류 음료 세부 항목
+            document.getElementById('beverage_regular').textContent = Math.round(monthlySales * 0.05).toLocaleString() + '원';
+            document.getElementById('beverage_premium').textContent = Math.round(monthlySales * 0.01).toLocaleString() + '원';
+            document.getElementById('beverage_soft').textContent = Math.round(monthlySales * 0.0075).toLocaleString() + '원';
+            
+            // 수도광열비 세부 항목
+            document.getElementById('utility_electric').textContent = Math.round(monthlySales * 0.01).toLocaleString() + '원';
+            document.getElementById('utility_gas').textContent = Math.round(monthlySales * 0.005).toLocaleString() + '원';
+            document.getElementById('utility_water').textContent = Math.round(monthlySales * 0.003).toLocaleString() + '원';
+            
+            // 기타잡비 세부 항목
+            document.getElementById('misc_coating').textContent = Math.round(monthlySales * 0.005).toLocaleString() + '원';
+            
+            // 카드수수료: 카드 매출(총 매출의 95%)의 1.4%
+            const cardSales = monthlySales * 0.95;
+            const cardFee = Math.round(cardSales * 0.014);
+            document.getElementById('misc_card_fee').textContent = cardFee.toLocaleString() + '원';
+            
+            document.getElementById('misc_royalty').textContent = Math.round(monthlySales * 0.022).toLocaleString() + '원';
+            document.getElementById('misc_advertising').textContent = Math.round(monthlySales * 0.02).toLocaleString() + '원';
+        }
+        
+        // 인건비 세부 항목 업데이트 함수
+        function updateLaborDetails(staffSalary, insurance, ptSalary, monthlySales) {
+            // 인건비 세부 항목 업데이트
+            const staffSalaryElement = document.querySelector('#labor-costs-details tbody tr:nth-child(1) .amount');
+            const insuranceElement = document.querySelector('#labor-costs-details tbody tr:nth-child(2) .amount');
+            const ptSalaryElement = document.querySelector('#labor-costs-details tbody tr:nth-child(3) .amount');
+            
+            if (staffSalaryElement) staffSalaryElement.textContent = staffSalary.toLocaleString() + '원';
+            if (insuranceElement) insuranceElement.textContent = insurance.toLocaleString() + '원';
+            if (ptSalaryElement) ptSalaryElement.textContent = ptSalary.toLocaleString() + '원';
+            
+            // 비율 업데이트
+            const staffPercentElement = document.querySelector('#labor-costs-details tbody tr:nth-child(1) .percentage');
+            const insurancePercentElement = document.querySelector('#labor-costs-details tbody tr:nth-child(2) .percentage');
+            const ptPercentElement = document.querySelector('#labor-costs-details tbody tr:nth-child(3) .percentage');
+            
+            if (staffPercentElement) staffPercentElement.textContent = ((staffSalary / monthlySales) * 100).toFixed(1) + '%';
+            if (insurancePercentElement) insurancePercentElement.textContent = ((insurance / monthlySales) * 100).toFixed(1) + '%';
+            if (ptPercentElement) ptPercentElement.textContent = ((ptSalary / monthlySales) * 100).toFixed(1) + '%';
+        }
+        
+        // 고정비 세부 항목 업데이트 함수
+        function updateFixedCostDetails(monthlyRent, posCost, monthlySales) {
+            // 포스 비용 업데이트
+            const posElement = document.querySelector('#fixed-costs-details tbody tr:nth-child(2) .amount');
+            if (posElement) posElement.textContent = posCost.toLocaleString() + '원';
+            
+            // 포스 비율 업데이트
+            const posPercentElement = document.querySelector('#fixed-costs-details tbody tr:nth-child(2) .percentage');
+            if (posPercentElement) posPercentElement.textContent = ((posCost / monthlySales) * 100).toFixed(2) + '%';
+        }
+        
+        // 페이지 로드 시 초기 계산 실행
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCalculation();
+        });
+    </script>
+</body>
+</html>
