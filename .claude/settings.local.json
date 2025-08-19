@@ -6,9 +6,15 @@
       "Bash(git add:*)",
       "Bash(git config:*)",
       "Bash(git push:*)",
-      "Bash(gh repo view:*)"
+      "Bash(gh repo view:*)",
+      "Bash(dir:*)",
+      "WebFetch(domain:danmak.co.kr)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": [],
-    "ask": []
+    "ask": [],
+    "additionalDirectories": [
+      "C:\\Users\\kasse\\.claude"
+    ]
   }
 }

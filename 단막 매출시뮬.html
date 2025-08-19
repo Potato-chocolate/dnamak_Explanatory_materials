@@ -6,14 +6,14 @@
     <title>단막 프랜차이즈 매출 시뮬레이션</title>
     <style>
         :root {
-            --primary-color: #667eea;
-            --primary-dark: #764ba2;
-            --secondary-color: #28a745;
-            --secondary-dark: #20c997;
-            --accent-color: #f39c12;
-            --danger-color: #e74c3c;
-            --dark-color: #2c3e50;
-            --light-color: #ecf0f1;
+            --primary-color: #8B4513;
+            --primary-dark: #654321;
+            --secondary-color: #FF8C00;
+            --secondary-dark: #D2691E;
+            --accent-color: #FF7F50;
+            --danger-color: #A0522D;
+            --dark-color: #654321;
+            --light-color: #FFF8DC;
             --shadow-light: 0 2px 10px rgba(0,0,0,0.08);
             --shadow-medium: 0 8px 25px rgba(0,0,0,0.12);
             --shadow-heavy: 0 20px 40px rgba(0,0,0,0.15);
@@ -30,12 +30,13 @@
         
         body {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #FFF8DC 0%, #F5DEB3 100%);
             min-height: 100vh;
             padding: 20px;
-            color: #333;
+            color: #2c3e50;
             line-height: 1.6;
             scroll-behavior: smooth;
+            font-variant-numeric: tabular-nums;
         }
         
         .container {
@@ -84,7 +85,7 @@
             margin-bottom: 12px;
             position: relative;
             z-index: 1;
-            background: linear-gradient(45deg, #fff, #e8f4fd);
+            background: linear-gradient(45deg, #fff, #FFF8DC);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -106,7 +107,7 @@
         }
         
         .input-section {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: linear-gradient(135deg, #FFF8DC 0%, #F5DEB3 100%);
             padding: 30px;
             border-radius: var(--border-radius);
             border: 1px solid rgba(0,0,0,0.08);
@@ -154,7 +155,7 @@
         .form-group input, .form-group select {
             width: 100%;
             padding: 14px 18px;
-            border: 2px solid #dee2e6;
+            border: 2px solid var(--secondary-dark);
             border-radius: var(--border-radius);
             font-size: 1rem;
             transition: all var(--transition-smooth);
@@ -217,15 +218,16 @@
         
         .result-value {
             font-size: 3rem;
-            font-weight: 800;
+            font-weight: 900;
             margin-bottom: 12px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             position: relative;
             z-index: 1;
-            background: linear-gradient(45deg, #fff, #e8f4fd);
+            background: linear-gradient(45deg, #fff, #FFF8DC);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            font-variant-numeric: tabular-nums;
         }
         
         .result-unit {
@@ -297,7 +299,7 @@
             margin-bottom: 10px;
             position: relative;
             z-index: 1;
-            background: linear-gradient(45deg, #fff, #e8fdf2);
+            background: linear-gradient(45deg, #fff, #FFF8DC);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -316,16 +318,16 @@
         }
         
         .profit-input-section {
-            background: #f8f9fa;
+            background: #FFF8DC;
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 25px;
-            border: 1px solid #e9ecef;
+            border: 1px solid var(--secondary-dark);
         }
         
         .profit-input-section h3 {
             margin-bottom: 15px;
-            color: #343a40;
+            color: var(--dark-color);
             font-weight: 600;
         }
         
@@ -338,7 +340,7 @@
         .rent-input input {
             flex: 1;
             padding: 12px 16px;
-            border: 2px solid #dee2e6;
+            border: 2px solid var(--secondary-dark);
             border-radius: 8px;
             font-size: 16px;
             transition: all 0.3s ease;
@@ -346,7 +348,7 @@
         
         .rent-input input:focus {
             outline: none;
-            border-color: #28a745;
+            border-color: var(--secondary-color);
             box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
         }
         
@@ -395,11 +397,11 @@
         }
         
         .summary-card.expense {
-            background: linear-gradient(135deg, var(--danger-color) 0%, #fd7e14 100%);
+            background: linear-gradient(135deg, var(--danger-color) 0%, var(--secondary-color) 100%);
         }
         
         .summary-card.profit {
-            background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--danger-color) 100%);
         }
         
         .summary-card h4 {
@@ -410,8 +412,9 @@
         
         .summary-card .amount {
             font-size: 20px;
-            font-weight: bold;
+            font-weight: 800;
             margin-bottom: 5px;
+            font-variant-numeric: tabular-nums;
         }
         
         .summary-card .percentage {
@@ -425,14 +428,14 @@
         }
         
         .expense-category {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
+            background: #FFF8DC;
+            border: 1px solid var(--secondary-dark);
             border-radius: 10px;
             overflow: hidden;
         }
         
         .category-header {
-            background: linear-gradient(135deg, var(--dark-color) 0%, #495057 100%);
+            background: linear-gradient(135deg, var(--dark-color) 0%, var(--primary-color) 100%);
             color: white;
             padding: 18px 24px;
             cursor: pointer;
@@ -456,7 +459,7 @@
         }
         
         .category-header:hover {
-            background: linear-gradient(135deg, #495057 0%, #6c757d 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-dark) 100%);
             transform: translateX(3px);
         }
 
@@ -500,24 +503,25 @@
         .detail-table td {
             padding: 12px 20px;
             text-align: left;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid var(--secondary-dark);
             font-size: 14px;
         }
         
         .detail-table th {
-            background: #e9ecef;
+            background: #F5DEB3;
             font-weight: 600;
-            color: #495057;
+            color: var(--primary-color);
         }
         
         .detail-table .amount {
             text-align: right;
-            font-weight: 500;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
         }
         
         .detail-table .percentage {
             text-align: right;
-            color: #6c757d;
+            color: var(--dark-color);
             font-size: 12px;
         }
         
@@ -528,17 +532,17 @@
         }
         
         .reference-table {
-            background: #f8f9fa;
+            background: #FFF8DC;
             border-radius: 10px;
             overflow: hidden;
-            border: 1px solid #e9ecef;
+            border: 1px solid var(--secondary-dark);
             height: 280px;
             display: flex;
             flex-direction: column;
         }
         
         .table-title {
-            background: #343a40;
+            background: var(--dark-color);
             color: white;
             padding: 15px;
             font-weight: 600;
@@ -563,7 +567,7 @@
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
-            scrollbar-color: var(--primary-color) #f1f3f4;
+            scrollbar-color: var(--primary-color) #F5DEB3;
             border-radius: var(--border-radius);
         }
 
@@ -572,7 +576,7 @@
         }
 
         .table-wrapper::-webkit-scrollbar-track {
-            background: #f1f3f4;
+            background: #F5DEB3;
             border-radius: 4px;
         }
 
@@ -605,24 +609,24 @@
         th, td {
             padding: 10px 15px;
             text-align: left;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid var(--secondary-dark);
             font-size: 14px;
             vertical-align: middle;
         }
         
         th {
-            background: #e9ecef;
+            background: #F5DEB3;
             font-weight: 600;
-            color: #495057;
+            color: var(--primary-color);
         }
         
         tr:hover {
-            background: #f1f3f4;
+            background: #F5DEB3;
         }
         
         .highlight {
-            background: #fff3cd !important;
-            border-left: 4px solid #ffc107;
+            background: #FFF8DC !important;
+            border-left: 4px solid var(--secondary-color);
         }
         
         @media (max-width: 768px) {
@@ -720,7 +724,7 @@
             .detail-table th {
                 position: sticky;
                 top: 0;
-                background: #e9ecef;
+                background: #F5DEB3;
                 z-index: 10;
             }
 
@@ -787,6 +791,14 @@
         <div class="main-content">
             <div class="input-section">
                 <h2>📍 매장 정보 입력</h2>
+                
+                <div class="form-group">
+                    <label for="region_type">지역</label>
+                    <select id="region_type" onchange="updateLocationOptions()">
+                        <option value="수도권" selected>수도권</option>
+                        <option value="지방권">지방권</option>
+                    </select>
+                </div>
                 
                 <div class="form-group">
                     <label for="location_area">출점지역 및 상권</label>
@@ -1348,24 +1360,82 @@
             }
         }
         
+        // 지역별 상권 옵션 데이터
+        const locationOptions = {
+            '수도권': [
+                {value: '오피스-종각', text: '오피스 - 종각'},
+                {value: '주거-노원', text: '주거 - 노원'},
+                {value: '먹자-상암', text: '먹자골목 - 상암'},
+                {value: '대학생-신촌', text: '대학가 - 신촌'},
+                {value: '복합-홍대', text: '복합상권 - 홍대'},
+                {value: '데이트-석촌', text: '데이트코스 - 석촌'}
+            ],
+            '지방권': [
+                {value: '오피스-서면', text: '오피스 - 서면'},
+                {value: '주거-수성구', text: '주거 - 수성구'},
+                {value: '먹자-서문시장', text: '먹자골목 - 서문시장'},
+                {value: '대학생-계명대', text: '대학가 - 계명대'},
+                {value: '복합-센텀시티', text: '복합상권 - 센텀시티'},
+                {value: '데이트-해운대', text: '데이트코스 - 해운대'}
+            ]
+        };
+
+        // 상권 드롭다운 업데이트 함수
+        function updateLocationOptions() {
+            const regionType = document.getElementById('region_type').value;
+            const locationSelect = document.getElementById('location_area');
+            const currentAreaType = locationSelect.value.split('-')[0]; // 현재 선택된 상권 타입
+            
+            // 드롭다운 옵션 초기화
+            locationSelect.innerHTML = '';
+            
+            // 새로운 옵션들 추가
+            locationOptions[regionType].forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option.value;
+                optionElement.textContent = option.text;
+                locationSelect.appendChild(optionElement);
+            });
+            
+            // 동일한 상권 타입으로 자동 선택 (가능한 경우)
+            const matchingOption = locationOptions[regionType].find(option => 
+                option.value.startsWith(currentAreaType + '-'));
+            if (matchingOption) {
+                locationSelect.value = matchingOption.value;
+            } else {
+                locationSelect.selectedIndex = 0; // 첫 번째 옵션으로 기본 선택
+            }
+            
+            // 참고 테이블 업데이트
+            updateReferenceTable();
+            
+            // 매출 계산 업데이트
+            updateCalculation();
+        }
+
         // 매출 계산 업데이트 함수
         function updateCalculation() {
             const locationArea = document.getElementById('location_area').value;
             const areaType = locationArea.split('-')[0]; // 상권 타입 추출
+            const regionType = document.getElementById('region_type').value;
             const area = parseInt(document.getElementById('area_size').value);
             const businessDays = parseInt(document.getElementById('business_days').value);
             
             const tableCount = tablesByArea[area];
             const areaData = areaTypeData[areaType];
             
-            // 매출 계산: 테이블수 × 평균조단가 × 기대회전수 × 영업일수
-            const monthlySales = tableCount * areaData.price * areaData.turnover * businessDays;
+            // 지역별 가격 차등 적용 (지방권 선택시 -10,000원)
+            const adjustedPrice = regionType === '지방권' ? 
+                areaData.price - 10000 : areaData.price;
+            
+            // 매출 계산: 테이블수 × 조정된 평균조단가 × 기대회전수 × 영업일수
+            const monthlySales = tableCount * adjustedPrice * areaData.turnover * businessDays;
             
             // 결과 업데이트
             document.getElementById('monthly_sales').textContent = monthlySales.toLocaleString() + '원';
             document.getElementById('calc_area').textContent = area + '평';
             document.getElementById('calc_tables').textContent = tableCount + '개';
-            document.getElementById('calc_price').textContent = areaData.price.toLocaleString() + '원';
+            document.getElementById('calc_price').textContent = adjustedPrice.toLocaleString() + '원';
             document.getElementById('calc_turnover').textContent = areaData.turnover + '회';
             document.getElementById('calc_days').textContent = businessDays + '일';
             
@@ -1378,6 +1448,9 @@
         
         // 테이블 하이라이트 업데이트
         function updateTableHighlights(area, areaType) {
+            const regionType = document.getElementById('region_type').value;
+            const priceAdjustment = regionType === '지방권' ? -10000 : 0;
+            
             // 평수별 테이블 하이라이트
             const areaRows = document.querySelectorAll('.reference-table:first-child tbody tr');
             areaRows.forEach(row => {
@@ -1388,13 +1461,68 @@
                 }
             });
             
-            // 상권별 테이블 하이라이트
+            // 상권별 테이블 하이라이트 및 가격 업데이트
             const typeRows = document.querySelectorAll('.reference-table:nth-child(2) tbody tr');
             typeRows.forEach(row => {
                 row.classList.remove('highlight');
                 const typeText = row.cells[0].textContent;
                 if (typeText === areaType) {
                     row.classList.add('highlight');
+                }
+                
+                // 조단가 컬럼 업데이트 (지역별 가격 차등 반영)
+                const originalPrice = getOriginalPriceByAreaType(typeText);
+                if (originalPrice) {
+                    const adjustedPrice = originalPrice + priceAdjustment;
+                    row.cells[2].textContent = adjustedPrice.toLocaleString() + '원';
+                }
+            });
+        }
+        
+        // 상권별 원본 가격 조회 함수
+        function getOriginalPriceByAreaType(areaType) {
+            const priceMap = {
+                '오피스': 91000,
+                '주거': 82000,
+                '먹자골목': 87000,
+                '대학가': 79000,
+                '복합상권': 85000,
+                '데이트코스': 85000
+            };
+            return priceMap[areaType] || null;
+        }
+
+        // 참고 테이블 업데이트 함수
+        function updateReferenceTable() {
+            const regionType = document.getElementById('region_type').value;
+            const referenceTableRows = document.querySelectorAll('.reference-table:nth-child(3) tbody tr');
+            
+            // 지역별 상권 분류 참고 테이블 업데이트
+            const tableData = {
+                '수도권': [
+                    {type: '오피스', area: '종각', feature: '직장인 중심'},
+                    {type: '주거', area: '노원', feature: '주민 중심'},
+                    {type: '먹자골목', area: '상암', feature: '외식 중심'},
+                    {type: '대학가', area: '신촌', feature: '대학생 중심'},
+                    {type: '복합상권', area: '홍대', feature: '다양한 고객층'},
+                    {type: '데이트코스', area: '석촌', feature: '연인 중심'}
+                ],
+                '지방권': [
+                    {type: '오피스', area: '서면', feature: '직장인 중심'},
+                    {type: '주거', area: '수성구', feature: '주민 중심'},
+                    {type: '먹자골목', area: '서문시장', feature: '외식 중심'},
+                    {type: '대학가', area: '계명대', feature: '대학생 중심'},
+                    {type: '복합상권', area: '센텀시티', feature: '다양한 고객층'},
+                    {type: '데이트코스', area: '해운대', feature: '연인 중심'}
+                ]
+            };
+            
+            // 테이블 내용 업데이트
+            tableData[regionType].forEach((data, index) => {
+                if (referenceTableRows[index]) {
+                    referenceTableRows[index].cells[0].textContent = data.type;
+                    referenceTableRows[index].cells[1].textContent = data.area;
+                    referenceTableRows[index].cells[2].textContent = data.feature;
                 }
             });
         }
@@ -1576,6 +1704,7 @@
         
         // 페이지 로드 시 초기 계산 실행
         document.addEventListener('DOMContentLoaded', function() {
+            updateReferenceTable();
             updateCalculation();
         });
     </script>

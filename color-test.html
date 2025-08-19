@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>단막 브랜드 색상 테스트</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        h1 {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+        
+        .color-schemes {
+            padding: 40px;
+        }
+        
+        .scheme {
+            margin-bottom: 50px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .scheme-title {
+            background: #495057;
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .color-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+        
+        .preview-card {
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .color-info {
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        /* 옵션 1: 전통 한식 레드-브라운 계열 */
+        .option1-primary { background: linear-gradient(135deg, #8B0000 0%, #A52A2A 100%); }
+        .option1-secondary { background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%); }
+        .option1-accent { background: linear-gradient(135deg, #FF6347 0%, #FF7F50 100%); }
+        .option1-dark { background: linear-gradient(135deg, #2F1B14 0%, #4A2C1E 100%); }
+        
+        /* 옵션 2: 모던 블랙-골드 계열 */
+        .option2-primary { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
+        .option2-secondary { background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%); }
+        .option2-accent { background: linear-gradient(135deg, #B8860B 0%, #CD9A32 100%); }
+        .option2-dark { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%); }
+        
+        /* 옵션 3: 자연스러운 브라운-오렌지 계열 */
+        .option3-primary { background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%); }
+        .option3-secondary { background: linear-gradient(135deg, #FF8C00 0%, #FFA500 100%); }
+        .option3-accent { background: linear-gradient(135deg, #D2691E 0%, #FF7F50 100%); }
+        .option3-dark { background: linear-gradient(135deg, #654321 0%, #8B4513 100%); }
+        
+        .sample-content {
+            background: white;
+            margin: 20px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .sample-header {
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .sample-button {
+            display: inline-block;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            margin: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .sample-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .sample-price {
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            color: white;
+            margin: 10px 0;
+        }
+        
+        .approval-section {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            border-top: 3px solid #dee2e6;
+        }
+        
+        .approval-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin: 0 10px;
+            transition: transform 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .approval-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .approval-button.reject {
+            background: linear-gradient(135deg, #dc3545 0%, #e85d75 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🍖 단막 브랜드 색상 테스트</h1>
+        
+        <div class="color-schemes">
+            <!-- 옵션 1: 전통 한식 레드-브라운 -->
+            <div class="scheme">
+                <div class="scheme-title">옵션 1: 전통 한식 레드-브라운 계열</div>
+                <div class="color-preview">
+                    <div class="preview-card option1-primary">
+                        Primary Color
+                        <div class="color-info">#8B0000 ~ #A52A2A<br>메인 브랜드 컬러</div>
+                    </div>
+                    <div class="preview-card option1-secondary">
+                        Secondary Color  
+                        <div class="color-info">#D2691E ~ #CD853F<br>보조 컬러</div>
+                    </div>
+                    <div class="preview-card option1-accent">
+                        Accent Color
+                        <div class="color-info">#FF6347 ~ #FF7F50<br>강조 컬러</div>
+                    </div>
+                    <div class="preview-card option1-dark">
+                        Dark Color
+                        <div class="color-info">#2F1B14 ~ #4A2C1E<br>텍스트/배경</div>
+                    </div>
+                </div>
+                
+                <div class="sample-content">
+                    <div class="sample-header option1-primary">단막 프랜차이즈 예상 개설비용</div>
+                    <a href="#" class="sample-button option1-secondary">계산하기</a>
+                    <a href="#" class="sample-button option1-accent">문의하기</a>
+                    <div class="sample-price option1-primary">179,316,000원</div>
+                </div>
+            </div>
+            
+            <!-- 옵션 2: 모던 블랙-골드 -->
+            <div class="scheme">
+                <div class="scheme-title">옵션 2: 모던 블랙-골드 계열</div>
+                <div class="color-preview">
+                    <div class="preview-card option2-primary">
+                        Primary Color
+                        <div class="color-info">#1a1a1a ~ #2d2d2d<br>메인 브랜드 컬러</div>
+                    </div>
+                    <div class="preview-card option2-secondary">
+                        Secondary Color
+                        <div class="color-info">#DAA520 ~ #FFD700<br>보조 컬러</div>
+                    </div>
+                    <div class="preview-card option2-accent">
+                        Accent Color
+                        <div class="color-info">#B8860B ~ #CD9A32<br>강조 컬러</div>
+                    </div>
+                    <div class="preview-card option2-dark">
+                        Dark Color
+                        <div class="color-info">#0a0a0a ~ #1a1a1a<br>텍스트/배경</div>
+                    </div>
+                </div>
+                
+                <div class="sample-content">
+                    <div class="sample-header option2-primary">단막 프랜차이즈 예상 개설비용</div>
+                    <a href="#" class="sample-button option2-secondary">계산하기</a>
+                    <a href="#" class="sample-button option2-accent">문의하기</a>
+                    <div class="sample-price option2-primary">179,316,000원</div>
+                </div>
+            </div>
+            
+            <!-- 옵션 3: 자연스러운 브라운-오렌지 -->
+            <div class="scheme">
+                <div class="scheme-title">옵션 3: 자연스러운 브라운-오렌지 계열</div>
+                <div class="color-preview">
+                    <div class="preview-card option3-primary">
+                        Primary Color
+                        <div class="color-info">#8B4513 ~ #A0522D<br>메인 브랜드 컬러</div>
+                    </div>
+                    <div class="preview-card option3-secondary">
+                        Secondary Color
+                        <div class="color-info">#FF8C00 ~ #FFA500<br>보조 컬러</div>
+                    </div>
+                    <div class="preview-card option3-accent">
+                        Accent Color
+                        <div class="color-info">#D2691E ~ #FF7F50<br>강조 컬러</div>
+                    </div>
+                    <div class="preview-card option3-dark">
+                        Dark Color
+                        <div class="color-info">#654321 ~ #8B4513<br>텍스트/배경</div>
+                    </div>
+                </div>
+                
+                <div class="sample-content">
+                    <div class="sample-header option3-primary">단막 프랜차이즈 예상 개설비용</div>
+                    <a href="#" class="sample-button option3-secondary">계산하기</a>
+                    <a href="#" class="sample-button option3-accent">문의하기</a>
+                    <div class="sample-price option3-primary">179,316,000원</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="approval-section">
+            <h2>🎨 색상 선택</h2>
+            <p style="margin: 20px 0; font-size: 1.1rem; color: #6c757d;">
+                위 3가지 옵션 중 단막 브랜드에 가장 적합하다고 생각하시는 색상을 선택해주세요.<br>
+                또는 다른 색상 조합을 원하시면 말씀해주세요.
+            </p>
+            <button class="approval-button" onclick="selectOption(1)">옵션 1 선택</button>
+            <button class="approval-button" onclick="selectOption(2)">옵션 2 선택</button>  
+            <button class="approval-button" onclick="selectOption(3)">옵션 3 선택</button>
+            <button class="approval-button reject" onclick="requestCustom()">다른 색상 요청</button>
+        </div>
+    </div>
+    
+    <script>
+        function selectOption(option) {
+            alert(`옵션 ${option}을 선택하셨습니다! 이 색상으로 실제 파일들을 업데이트하겠습니다.`);
+        }
+        
+        function requestCustom() {
+            alert('맞춤 색상 요청을 받았습니다. 원하시는 색상이나 참고할 웹사이트를 알려주세요.');
+        }
+    </script>
+</body>
+</html>
