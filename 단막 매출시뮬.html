@@ -792,7 +792,7 @@
         
         th, td {
             padding: 10px 15px;
-            text-align: left;
+            text-align: center;
             border-bottom: 1px solid var(--secondary-dark);
             font-size: 14px;
             vertical-align: middle;
@@ -993,12 +993,12 @@
                 <div class="form-group">
                     <label for="location_area">출점지역 및 상권</label>
                     <select id="location_area" onchange="updateCalculation()">
-                        <option value="오피스-종각">오피스 - 종각</option>
-                        <option value="주거-노원">주거 - 노원</option>
-                        <option value="먹자-상암">먹자골목 - 상암</option>
-                        <option value="대학생-신촌">대학가 - 신촌</option>
-                        <option value="복합-홍대">복합상권 - 홍대</option>
-                        <option value="데이트-석촌">데이트코스 - 석촌</option>
+                        <option value="오피스-종각">오피스</option>
+                        <option value="주거-노원">주거</option>
+                        <option value="먹자-상암">먹자골목</option>
+                        <option value="대학생-신촌">대학가</option>
+                        <option value="복합-홍대">복합상권</option>
+                        <option value="데이트-석촌">데이트코스</option>
                     </select>
                 </div>
                 
@@ -1125,17 +1125,16 @@
                             <thead>
                                 <tr>
                                     <th>상권구분</th>
-                                    <th>대표지역</th>
                                     <th>특징</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="highlight"><td>오피스</td><td>종각</td><td>직장인 중심</td></tr>
-                                <tr><td>주거</td><td>노원</td><td>주민 중심</td></tr>
-                                <tr><td>먹자골목</td><td>상암</td><td>외식 중심</td></tr>
-                                <tr><td>대학가</td><td>신촌</td><td>대학생 중심</td></tr>
-                                <tr><td>복합상권</td><td>홍대</td><td>다양한 고객층</td></tr>
-                                <tr><td>데이트코스</td><td>석촌</td><td>연인 중심</td></tr>
+                                <tr class="highlight"><td>오피스</td><td>직장인 중심</td></tr>
+                                <tr><td>주거</td><td>주민 중심</td></tr>
+                                <tr><td>먹자골목</td><td>외식 중심</td></tr>
+                                <tr><td>대학가</td><td>대학생 중심</td></tr>
+                                <tr><td>복합상권</td><td>다양한 고객층</td></tr>
+                                <tr><td>데이트코스</td><td>연인 중심</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -1571,20 +1570,20 @@
         // 지역별 상권 옵션 데이터
         const locationOptions = {
             '수도권': [
-                {value: '오피스-종각', text: '오피스 - 종각'},
-                {value: '주거-노원', text: '주거 - 노원'},
-                {value: '먹자-상암', text: '먹자골목 - 상암'},
-                {value: '대학생-신촌', text: '대학가 - 신촌'},
-                {value: '복합-홍대', text: '복합상권 - 홍대'},
-                {value: '데이트-석촌', text: '데이트코스 - 석촌'}
+                {value: '오피스-종각', text: '오피스'},
+                {value: '주거-노원', text: '주거'},
+                {value: '먹자-상암', text: '먹자골목'},
+                {value: '대학생-신촌', text: '대학가'},
+                {value: '복합-홍대', text: '복합상권'},
+                {value: '데이트-석촌', text: '데이트코스'}
             ],
             '지방권': [
-                {value: '오피스-서면', text: '오피스 - 서면'},
-                {value: '주거-수성구', text: '주거 - 수성구'},
-                {value: '먹자-서문시장', text: '먹자골목 - 서문시장'},
-                {value: '대학생-계명대', text: '대학가 - 계명대'},
-                {value: '복합-센텀시티', text: '복합상권 - 센텀시티'},
-                {value: '데이트-해운대', text: '데이트코스 - 해운대'}
+                {value: '오피스-서면', text: '오피스'},
+                {value: '주거-수성구', text: '주거'},
+                {value: '먹자-서문시장', text: '먹자골목'},
+                {value: '대학생-계명대', text: '대학가'},
+                {value: '복합-센텀시티', text: '복합상권'},
+                {value: '데이트-해운대', text: '데이트코스'}
             ]
         };
 
@@ -1708,20 +1707,20 @@
             // 지역별 상권 분류 참고 테이블 업데이트
             const tableData = {
                 '수도권': [
-                    {type: '오피스', area: '종각', feature: '직장인 중심'},
-                    {type: '주거', area: '노원', feature: '주민 중심'},
-                    {type: '먹자골목', area: '상암', feature: '외식 중심'},
-                    {type: '대학가', area: '신촌', feature: '대학생 중심'},
-                    {type: '복합상권', area: '홍대', feature: '다양한 고객층'},
-                    {type: '데이트코스', area: '석촌', feature: '연인 중심'}
+                    {type: '오피스', feature: '직장인 중심'},
+                    {type: '주거', feature: '주민 중심'},
+                    {type: '먹자골목', feature: '외식 중심'},
+                    {type: '대학가', feature: '대학생 중심'},
+                    {type: '복합상권', feature: '다양한 고객층'},
+                    {type: '데이트코스', feature: '연인 중심'}
                 ],
                 '지방권': [
-                    {type: '오피스', area: '서면', feature: '직장인 중심'},
-                    {type: '주거', area: '수성구', feature: '주민 중심'},
-                    {type: '먹자골목', area: '서문시장', feature: '외식 중심'},
-                    {type: '대학가', area: '계명대', feature: '대학생 중심'},
-                    {type: '복합상권', area: '센텀시티', feature: '다양한 고객층'},
-                    {type: '데이트코스', area: '해운대', feature: '연인 중심'}
+                    {type: '오피스', feature: '직장인 중심'},
+                    {type: '주거', feature: '주민 중심'},
+                    {type: '먹자골목', feature: '외식 중심'},
+                    {type: '대학가', feature: '대학생 중심'},
+                    {type: '복합상권', feature: '다양한 고객층'},
+                    {type: '데이트코스', feature: '연인 중심'}
                 ]
             };
             
@@ -1729,8 +1728,7 @@
             tableData[regionType].forEach((data, index) => {
                 if (referenceTableRows[index]) {
                     referenceTableRows[index].cells[0].textContent = data.type;
-                    referenceTableRows[index].cells[1].textContent = data.area;
-                    referenceTableRows[index].cells[2].textContent = data.feature;
+                    referenceTableRows[index].cells[1].textContent = data.feature;
                 }
             });
         }
