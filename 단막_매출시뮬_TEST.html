@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>단막 프랜차이즈 매출 시뮬레이션</title>
+    <title>단막 프랜차이즈 매출 시뮬레이션 - TEST</title>
     <style>
         :root {
             --primary-color: #8B4513;
@@ -812,6 +812,26 @@
             background: #FFF8DC !important;
             border-left: 4px solid var(--secondary-color);
         }
+
+        /* TEST 표시 추가 */
+        .test-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #FF4444;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(255, 68, 68, 0.3);
+            animation: testBlink 2s ease-in-out infinite;
+        }
+
+        @keyframes testBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
         
         @media (max-width: 768px) {
             body {
@@ -972,6 +992,9 @@
     </style>
 </head>
 <body>
+    <!-- TEST 표시 -->
+    <div class="test-indicator">🧪 TEST VERSION</div>
+
     <div class="container">
         <div class="header">
             <h1>단막 프랜차이즈 매출 시뮬레이션</h1>
@@ -1778,8 +1801,8 @@
             const otherFixedCosts = posCost + 38500 + 110000 + 55000 + 70000 + 110000;
             const totalFixedCosts = monthlyRent + otherFixedCosts;
             
-            // 각 비용 항목 계산 (매출 기준 비율)
-            const foodCosts = Math.round(monthlySales * 0.273); // 27.3%
+            // 각 비용 항목 계산 (매출 기준 비율) - 수정된 비율 적용
+            const foodCosts = Math.round(monthlySales * 0.273); // 27.3% (25.3% → 27.3%)
             const beverageCosts = Math.round(monthlySales * 0.068); // 6.8%
             const utilityCosts = Math.round(monthlySales * 0.018); // 1.8%
             
@@ -1845,11 +1868,11 @@
             updateFixedCostDetails(monthlyRent, posCost, monthlySales);
         }
         
-        // 세부 비용 항목 업데이트 함수
+        // 세부 비용 항목 업데이트 함수 - 수정된 비율 적용
         function updateDetailedCosts(monthlySales, area) {
-            // 식재료 세부 항목
-            document.getElementById('food_main').textContent = Math.round(monthlySales * 0.135).toLocaleString() + '원';
-            document.getElementById('food_sauce').textContent = Math.round(monthlySales * 0.03).toLocaleString() + '원';
+            // 식재료 세부 항목 - 본사물류 비율 수정
+            document.getElementById('food_main').textContent = Math.round(monthlySales * 0.135).toLocaleString() + '원'; // 13.5% (12.5% → 13.5%)
+            document.getElementById('food_sauce').textContent = Math.round(monthlySales * 0.03).toLocaleString() + '원'; // 3.0% (2.0% → 3.0%)
             document.getElementById('food_meat').textContent = Math.round(monthlySales * 0.03).toLocaleString() + '원';
             document.getElementById('food_produce').textContent = Math.round(monthlySales * 0.0575).toLocaleString() + '원';
             document.getElementById('food_supplies').textContent = Math.round(monthlySales * 0.02).toLocaleString() + '원';
