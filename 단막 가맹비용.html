@@ -258,7 +258,7 @@
         .cost-table th {
             background: linear-gradient(135deg, var(--light-color) 0%, #F5DEB3 100%);
             padding: 16px 12px;
-            border-bottom: 2px solid var(--secondary-dark);
+            border-bottom: 2px solid var(--secondary-color);
             font-weight: 700;
             color: var(--dark-color);
             text-align: center;
@@ -466,7 +466,6 @@
             z-index: 1;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             font-variant-numeric: tabular-nums;
         }
 
@@ -481,7 +480,7 @@
 
         .note-section {
             background: #FFF8DC;
-            border: 1px solid var(--secondary-dark);
+            border: 1px solid var(--secondary-color);
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
@@ -859,7 +858,7 @@
                             <td class="sub-name">4인</td>
                             <td class="price">175,000원</td>
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked disabled></td>
-                            <td><input type="number" class="quantity-input" id="table_4_qty" value="15" min="0" data-price="175000" onchange="calculateRow(this)"></td>
+                            <td><input type="number" class="quantity-input" id="table_4_qty" value="15" min="0" data-price="175000" onchange="calculateTableChairSync(this)"></td>
                             <td class="total">2,625,000원</td>
                             <td class="note"></td>
                         </tr>
@@ -884,7 +883,7 @@
                             <td class="sub-name">붙박이 1석</td>
                             <td class="price">170,000원</td>
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" onchange="toggleQuantity(this)"></td>
-                            <td><input type="number" class="quantity-input" id="booth_seat_qty" value="0" min="0" data-price="170000" onchange="calculateTableChairSync(this)"></td>
+                            <td><input type="number" class="quantity-input" id="booth_seat_qty" value="0" min="0" data-price="170000" onchange="calculateRow(this)"></td>
                             <td class="total">0원</td>
                             <td class="note">0.5m당 1석 기준</td>
                         </tr>
@@ -1100,9 +1099,9 @@
                         <tr>
                             <td class="sub-name">덕트</td>
                             <td class="price">200,000원</td>
-                            <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" onchange="toggleQuantity(this)"></td>
-                            <td><input type="number" class="quantity-input" id="duct_qty" value="0" min="0" data-price="200000" onchange="calculateRow(this)" disabled></td>
-                            <td class="total">0원</td>
+                            <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" checked onchange="toggleQuantity(this)"></td>
+                            <td><input type="number" class="quantity-input" id="duct_qty" value="40" min="0" data-price="200000" onchange="calculateRow(this)"></td>
+                            <td class="total">8,000,000원</td>
                             <td class="note">평당 적용</td>
                         </tr>
                         <tr>
@@ -1209,21 +1208,13 @@
                             <td class="note">평당 적용</td>
                         </tr>
                         <tr>
-                            <td class="item-name" rowspan="3" style="vertical-align: middle; text-align: left;">기타</td>
+                            <td class="item-name" rowspan="2" style="vertical-align: middle; text-align: left;">기타</td>
                             <td class="sub-name">도시가스 신설</td>
                             <td class="price">2,500,000원</td>
                             <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" onchange="toggleQuantity(this)"></td>
                             <td><input type="number" class="quantity-input" value="0" min="0" data-price="2500000" onchange="calculateRow(this)" disabled></td>
                             <td class="total">0원</td>
                             <td class="note">도시가스 인입 완료시</td>
-                        </tr>
-                        <tr>
-                            <td class="sub-name">화장실</td>
-                            <td class="price">2,500,000원</td>
-                            <td class="checkbox-cell"><input type="checkbox" class="item-checkbox" onchange="toggleQuantity(this)"></td>
-                            <td><input type="number" class="quantity-input" value="0" min="0" data-price="2500000" onchange="calculateRow(this)" disabled></td>
-                            <td class="total">0원</td>
-                            <td class="note">남녀 공용 1칸 적용</td>
                         </tr>
                         <tr>
                             <td class="sub-name">인조조경</td>
@@ -1323,6 +1314,7 @@
         const formatNumber = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
         function updateStoreInfo() {
+            console.log('🔧 updateStoreInfo 함수 호출됨');
             // 상권과 평수 정보 가져오기
             const businessSelect = document.getElementById('business_type');
             const areaSelect = document.getElementById('store_area');
@@ -1334,27 +1326,26 @@
             const area = parseInt(selectedArea.value);
             const tables = parseInt(selectedArea.dataset.tables);
             
+            console.log('📊 평수:', area, '테이블 수:', tables);
+            
             // 매장 기본 정보 업데이트
             document.getElementById('table_count').textContent = tables + '개';
-            document.getElementById('rotation_rate').textContent = rotation + '회';
-            
-            // 매출 계산 (평균조단가 91,000 × 회전수 × 테이블수 × 영업일수 30)
-            const unitPrice = 91000;
-            const workingDays = 30;
-            const monthlySales = unitPrice * rotation * tables * workingDays;
-            document.getElementById('monthly_sales').textContent = formatNumber(monthlySales) + '원';
             
             // 개설비용 항목들 자동 업데이트
             updateCostItems(area, tables);
         }
 
         function updateCostItems(area, tables) {
+            console.log('💡 updateCostItems 함수 호출됨 - 평수:', area, '테이블:', tables);
+            
             // 1. 인테리어 평수 업데이트
             document.getElementById('interior_area').value = area;
             calculateInteriorRow();
             
-            // 2. 테이블 수량 업데이트 (4인 테이블만 기본 설정)
+            // 2. 테이블 수량 초기화 (4인 테이블 기본, 6인 테이블 0개)
             document.getElementById('table_4_qty').value = tables;
+            document.getElementById('table_6_qty').value = 0;
+            calculateRow(document.getElementById('table_6_qty'));
             
             // 3. 의자 수량 업데이트 (테이블 기반으로 계산)
             updateChairQuantity();
@@ -1368,12 +1359,16 @@
             
             // 6. 불판 수량 업데이트 (매장평수 × 3)
             const grillPlateQty = area * 3;
+            console.log('🔥 불판 수량 계산:', area, '× 3 =', grillPlateQty);
             document.getElementById('grill_plate_qty').value = grillPlateQty;
             calculateRow(document.getElementById('grill_plate_qty'));
+            console.log('🔥 불판 수량 설정 완료, 현재 값:', document.getElementById('grill_plate_qty').value);
             
             // 7. 직화기 수량 업데이트 (선택과 무관하게 테이블 수와 동일)
+            console.log('🌪️ 직화기 수량 설정:', tables);
             document.getElementById('direct_fire_qty').value = tables;
             calculateRow(document.getElementById('direct_fire_qty'));
+            console.log('🌪️ 직화기 수량 설정 완료, 현재 값:', document.getElementById('direct_fire_qty').value);
             
             // 8. 디자인물 수량 업데이트 (평당)
             document.getElementById('design_qty').value = area;
@@ -1489,9 +1484,11 @@
         }
 
         function calculateGrillSelection() {
+            console.log('🔥 calculateGrillSelection 함수 호출됨');
             const selectedGrill = document.querySelector('input[name="grill-type"]:checked');
             const grillPrice = parseInt(selectedGrill.dataset.price);
             const tables = parseInt(document.getElementById('grill_qty').value) || 15;
+            console.log('🔥 calculateGrillSelection - 읽은 테이블 수:', tables);
             
             // 화로세트 정보 업데이트
             document.getElementById('grill_price').textContent = formatNumber(grillPrice) + '원';
@@ -1514,9 +1511,10 @@
                 calculateRow(igniterQty);
                 document.getElementById('grill_note').textContent = '테이블당 적용';
             }
-            // 직화기는 선택과 무관하게 테이블 수와 동일
+            // 직화기는 테이블 수와 동일하게 설정
             directFireQtyInput.value = tables;
             calculateRow(directFireQtyInput);
+            console.log('🔥 직화기 수량 설정 완료:', tables);
             
             // 화로세트 합계 계산
             const grillTotal = grillPrice * tables;
@@ -1531,44 +1529,102 @@
 
         function calculateGrillSectionSubtotal() {
             const grillTotal = parseInt(document.getElementById('grill_total').textContent.replace(/[^\d]/g, '')) || 0;
-            const plateTotal = parseInt(document.querySelector('#grill-plate-qty').closest('tr').querySelector('.total').textContent.replace(/[^\d]/g, '')) || 0;
+            const plateTotal = parseInt(document.querySelector('#grill_plate_qty').closest('tr').querySelector('.total').textContent.replace(/[^\d]/g, '')) || 0;
             const igniterTotal = parseInt(document.getElementById('igniter_total').textContent.replace(/[^\d]/g, '')) || 0;
-            const fireTotal = parseInt(document.querySelector('#direct-fire-qty').closest('tr').querySelector('.total').textContent.replace(/[^\d]/g, '')) || 0;
+            const fireTotal = parseInt(document.querySelector('#direct_fire_qty').closest('tr').querySelector('.total').textContent.replace(/[^\d]/g, '')) || 0;
             
             const sectionTotal = grillTotal + plateTotal + igniterTotal + fireTotal;
             document.getElementById('subtotal_5').innerHTML = '<strong>' + formatNumber(sectionTotal) + '원</strong>';
         }
 
         function calculateTableChairSync(input) {
-            // 기본 행 계산
-            calculateRow(input);
+            // 매장 평수별 기본 테이블 수
+            const baseTableQty = parseInt(document.getElementById('store_area').options[document.getElementById('store_area').selectedIndex].dataset.tables);
             
-            // 의자 수량 재계산
+            // 현재 입력된 값들 가져오기
+            let table4Qty = parseInt(document.getElementById('table_4_qty').value) || 0;
+            let table6Qty = parseInt(document.getElementById('table_6_qty').value) || 0;
+            
+            // 변경된 테이블에 따라 상대방 테이블 수량 조정
+            if (input.id === 'table_6_qty') {
+                table6Qty = parseInt(input.value) || 0;
+                table4Qty = Math.max(0, baseTableQty - table6Qty);
+                document.getElementById('table_4_qty').value = table4Qty;
+            } else if (input.id === 'table_4_qty') {
+                table4Qty = parseInt(input.value) || 0;
+                table6Qty = Math.max(0, baseTableQty - table4Qty);
+                document.getElementById('table_6_qty').value = table6Qty;
+            }
+            
+            // 테이블 합계 수동 계산 (이벤트 체인 차단)
+            updateTableTotals(table4Qty, table6Qty);
+            
+            // 의자 수량 업데이트
             updateChairQuantity();
             
-            // 테이블 4인과 6인 연동
-            if (input.id === 'table-6-qty') {
-                const table6Qty = parseInt(input.value) || 0;
-                const currentTable4Qty = parseInt(document.getElementById('table_4_qty').value) || 0;
-                const baseTableQty = parseInt(document.getElementById('store_area').options[document.getElementById('store_area').selectedIndex].dataset.tables);
-                
-                // 4인 테이블 수량 조정 (전체 테이블 수에서 6인 테이블 수를 뺀 값)
-                const newTable4Qty = Math.max(0, baseTableQty - table6Qty);
-                document.getElementById('table_4_qty').value = newTable4Qty;
-                calculateRow(document.getElementById('table_4_qty'));
-                
-                // 화로 관련 항목도 업데이트
-                const totalTables = newTable4Qty + table6Qty;
-                document.getElementById('table-grill-qty').value = totalTables;
-                calculateRow(document.getElementById('table-grill-qty'));
-                
-                // 직화기 수량은 선택과 무관하게 테이블 수와 동일
-                document.getElementById('direct_fire_qty').value = totalTables;
-                calculateRow(document.getElementById('direct_fire_qty'));
-                
-                const grillPlateQty = totalTables * 8;
-                document.getElementById('grill_plate_qty').value = grillPlateQty;
-                calculateRow(document.getElementById('grill_plate_qty'));
+            // 화로 관련 항목 업데이트
+            const totalTables = table4Qty + table6Qty;
+            updateGrillRelatedItems(totalTables);
+            
+            // 섹션 소계 및 총계 업데이트
+            updateSectionSubtotal();
+            calculateGrandTotal();
+        }
+        
+        function updateTableTotals(table4Qty, table6Qty) {
+            // 4인 테이블 합계
+            const table4Input = document.getElementById('table_4_qty');
+            const table4Price = parseInt(table4Input.dataset.price);
+            const table4Total = table4Price * table4Qty;
+            const table4Row = table4Input.closest('tr');
+            table4Row.querySelector('.total').textContent = formatNumber(table4Total) + '원';
+            
+            // 6인 테이블 합계
+            const table6Input = document.getElementById('table_6_qty');
+            const table6Price = parseInt(table6Input.dataset.price);
+            const table6Total = table6Price * table6Qty;
+            const table6Row = table6Input.closest('tr');
+            table6Row.querySelector('.total').textContent = formatNumber(table6Total) + '원';
+        }
+        
+        function updateGrillRelatedItems(totalTables) {
+            // 화로세트 수량 및 합계 업데이트
+            const grillInput = document.getElementById('grill_qty');
+            grillInput.value = totalTables;
+            const grillPrice = parseInt(grillInput.dataset.price);
+            const grillTotal = grillPrice * totalTables;
+            const grillRow = grillInput.closest('tr');
+            grillRow.querySelector('.total').textContent = formatNumber(grillTotal) + '원';
+            
+            // 직화기 수량 및 합계 업데이트
+            const fireInput = document.getElementById('direct_fire_qty');
+            fireInput.value = totalTables;
+            const firePrice = parseInt(fireInput.dataset.price);
+            const fireTotal = firePrice * totalTables;
+            const fireRow = fireInput.closest('tr');
+            fireRow.querySelector('.total').textContent = formatNumber(fireTotal) + '원';
+            
+            // 화로 섹션 소계 업데이트
+            calculateGrillSectionSubtotal();
+        }
+        
+        function updateSectionSubtotal() {
+            // 의탁자 및 가구류 섹션 소계 계산
+            const section = document.querySelector('.cost-section:nth-of-type(3)'); // 의탁자 및 가구류 섹션
+            const rows = section.querySelectorAll('tbody tr:not(.subtotal-row)');
+            let subtotal = 0;
+            
+            rows.forEach(row => {
+                const totalCell = row.querySelector('.total');
+                if (totalCell) {
+                    const amount = parseInt(totalCell.textContent.replace(/[^\d]/g, '')) || 0;
+                    subtotal += amount;
+                }
+            });
+            
+            const subtotalRow = section.querySelector('.subtotal-row .total');
+            if (subtotalRow) {
+                subtotalRow.innerHTML = '<strong>' + formatNumber(subtotal) + '원</strong>';
             }
         }
 
@@ -1624,10 +1680,8 @@
             }
             
             // 테이블/의자 연동 계산이 필요한 항목들
-            if (quantityInput.id === 'table-6-qty' || quantityInput.id === 'booth-seat-qty') {
+            if (quantityInput.id === 'table-6-qty') {
                 calculateTableChairSync(quantityInput);
-            } else if (quantityInput.id === 'electric-grill-qty') {
-                calculateGrillSync(quantityInput);
             } else {
                 calculateRow(quantityInput);
             }
