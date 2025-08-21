@@ -709,6 +709,26 @@
             font-size: 12px;
         }
         
+        /* 인건비 서브라벨 스타일 */
+        .main-label {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 4px;
+        }
+        
+        .sub-label {
+            font-size: 11px;
+            color: #666;
+            font-style: italic;
+            line-height: 1.2;
+        }
+        
+        .sub-label::before {
+            content: "• ";
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
         .tables-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1271,7 +1291,10 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>직원 급여</td>
+                                        <td>
+                                            <div class="main-label">직원 급여</div>
+                                            <div class="sub-label" id="staff_info_display">약 5명 고용 기준</div>
+                                        </td>
                                         <td class="amount">16,500,000원</td>
                                         <td class="percentage">16.1%</td>
                                         <td>평수별 차등 적용</td>
@@ -1283,7 +1306,10 @@
                                         <td>직원 급여의 9%</td>
                                     </tr>
                                     <tr>
-                                        <td>PT 급여</td>
+                                        <td>
+                                            <div class="main-label">PT 급여</div>
+                                            <div class="sub-label" id="pt_info_display">약 5명, 평균 20시간 기준</div>
+                                        </td>
                                         <td class="amount">6,715,320원</td>
                                         <td class="percentage">6.6%</td>
                                         <td>평수별 차등 적용</td>
@@ -1530,6 +1556,17 @@
             70: { staffSalary: 22700000, ptSalary: 9886800 }
         };
         
+        // 평수별 인력 정보 데이터
+        const laborInfoByArea = {
+            30: { staffCount: 5, ptCount: 5, ptHours: 20 },
+            35: { staffCount: 5, ptCount: 5, ptHours: 20 },
+            40: { staffCount: 5, ptCount: 5, ptHours: 20 },
+            45: { staffCount: 5, ptCount: 5, ptHours: 20 },
+            50: { staffCount: 6, ptCount: 7, ptHours: 20 },
+            60: { staffCount: 6, ptCount: 7, ptHours: 20 },
+            70: { staffCount: 6, ptCount: 7, ptHours: 20 }
+        };
+        
         // 평수별 포스 비용 계산 (테이블 오더기 + 메인 포스 + 부가세)
         const getPosCost = area => Math.round(((14000 * (tablesByArea[area] + 1)) + 30000) * 1.1);
         // 평수별 인건비 계산 함수 (보간법 적용)
@@ -1648,6 +1685,9 @@
             
             // 테이블 하이라이트 업데이트
             updateTableHighlights(area, areaType);
+            
+            // 인력 정보 업데이트
+            updateLaborInfo(area);
             
             // 수익 분석도 함께 업데이트
             updateProfitCalculation();
@@ -1895,6 +1935,24 @@
             if (staffPercentElement) staffPercentElement.textContent = ((staffSalary / monthlySales) * 100).toFixed(1) + '%';
             if (insurancePercentElement) insurancePercentElement.textContent = ((insurance / monthlySales) * 100).toFixed(1) + '%';
             if (ptPercentElement) ptPercentElement.textContent = ((ptSalary / monthlySales) * 100).toFixed(1) + '%';
+        }
+        
+        // 인력 정보 업데이트 함수
+        function updateLaborInfo(area) {
+            const laborInfo = laborInfoByArea[area];
+            if (laborInfo) {
+                // 직원 급여 서브라벨 업데이트
+                const staffInfoElement = document.getElementById('staff_info_display');
+                if (staffInfoElement) {
+                    staffInfoElement.textContent = `약 ${laborInfo.staffCount}명 고용 기준`;
+                }
+                
+                // PT 급여 서브라벨 업데이트
+                const ptInfoElement = document.getElementById('pt_info_display');
+                if (ptInfoElement) {
+                    ptInfoElement.textContent = `약 ${laborInfo.ptCount}명, 평균 ${laborInfo.ptHours}시간 기준`;
+                }
+            }
         }
         
         // 고정비 세부 항목 업데이트 함수
