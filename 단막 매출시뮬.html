@@ -1324,8 +1324,8 @@
                         <div class="category-header" onclick="toggleCategory('food-costs')">
                             <h4>🥩 식재료</h4>
                             <div class="category-summary">
-                                <span id="food_costs_amount">25,849,688원</span>
-                                <span class="percentage">(27.30%)</span>
+                                <span id="food_costs_amount">23,802,188원</span>
+                                <span class="percentage">(25.30%)</span>
                                 <span class="toggle-icon" id="food-costs-icon">▼</span>
                             </div>
                         </div>
@@ -1365,12 +1365,6 @@
                                         <td class="amount" id="food_produce">5,886,563원</td>
                                         <td class="percentage">5.8%</td>
                                         <td>쌀, 야채, 김가루 등</td>
-                                    </tr>
-                                    <tr>
-                                        <td>부자재 및 소모품</td>
-                                        <td class="amount" id="food_supplies">2,047,500원</td>
-                                        <td class="percentage">2.0%</td>
-                                        <td>숯, 종이컵, 물티슈 등</td>
                                     </tr>
                                 </tbody>
                                 </table>
@@ -1474,8 +1468,8 @@
                         <div class="category-header" onclick="toggleCategory('misc-costs')">
                             <h4>📋 기타잡비</h4>
                             <div class="category-summary">
-                                <span id="misc_costs_amount">5,625,713원</span>
-                                <span class="percentage">(5.5%)</span>
+                                <span id="misc_costs_amount">7,673,213원</span>
+                                <span class="percentage">(7.5%)</span>
                                 <span class="toggle-icon" id="misc-costs-icon">▼</span>
                             </div>
                         </div>
@@ -1521,6 +1515,12 @@
                                         <td class="amount" id="misc_advertising">2,047,500원</td>
                                         <td class="percentage">2.0%</td>
                                         <td>본사+매장 홍보비</td>
+                                    </tr>
+                                    <tr>
+                                        <td>부자재 및 소모품</td>
+                                        <td class="amount" id="misc_supplies">2,047,500원</td>
+                                        <td class="percentage">2.0%</td>
+                                        <td>숯, 종이컵, 물티슈 등</td>
                                     </tr>
                                 </tbody>
                                 </table>
@@ -1819,7 +1819,7 @@
             const totalFixedCosts = monthlyRent + otherFixedCosts;
             
             // 각 비용 항목 계산 (매출 기준 비율)
-            const foodCosts = Math.round(monthlySales * 0.273); // 27.3%
+            const foodCosts = Math.round(monthlySales * 0.253); // 25.3%
             const beverageCosts = Math.round(monthlySales * 0.068); // 6.8%
             const utilityCosts = Math.round(monthlySales * 0.018); // 1.8%
             
@@ -1831,7 +1831,8 @@
             const cardFee = Math.round(cardSales * 0.014); // 카드 매출의 1.4%
             const royalty = Math.round(monthlySales * 0.022);
             const advertising = Math.round(monthlySales * 0.02);
-            const miscCosts = coatingCosts + welfareCosts + cardFee + royalty + advertising;
+            const supplies = Math.round(monthlySales * 0.02); // 부자재 및 소모품 2%
+            const miscCosts = coatingCosts + welfareCosts + cardFee + royalty + advertising + supplies;
             
             // 총 지출 및 순수익 계산
             const totalExpense = totalFixedCosts + totalLaborCosts + foodCosts + beverageCosts + utilityCosts + miscCosts;
@@ -1892,7 +1893,6 @@
             document.getElementById('food_sauce').textContent = Math.round(monthlySales * 0.03).toLocaleString() + '원';
             document.getElementById('food_meat').textContent = Math.round(monthlySales * 0.03).toLocaleString() + '원';
             document.getElementById('food_produce').textContent = Math.round(monthlySales * 0.0575).toLocaleString() + '원';
-            document.getElementById('food_supplies').textContent = Math.round(monthlySales * 0.02).toLocaleString() + '원';
             
             // 주류 음료 세부 항목
             document.getElementById('beverage_regular').textContent = Math.round(monthlySales * 0.05).toLocaleString() + '원';
@@ -1914,6 +1914,7 @@
             
             document.getElementById('misc_royalty').textContent = Math.round(monthlySales * 0.022).toLocaleString() + '원';
             document.getElementById('misc_advertising').textContent = Math.round(monthlySales * 0.02).toLocaleString() + '원';
+            document.getElementById('misc_supplies').textContent = Math.round(monthlySales * 0.02).toLocaleString() + '원';
         }
         
         // 인건비 세부 항목 업데이트 함수
